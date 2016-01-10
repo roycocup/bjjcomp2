@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Helper;
 
 class User extends Model {
 
@@ -29,8 +30,8 @@ class User extends Model {
     public function getFightersFor($gender, $age_group, $belt, $weight){
         $min_age = $this->age_categories[$age_group][0];
         $max_age = $this->age_categories[$age_group][1];
-        $min_birthday = calculateBirthday($min_age);
-        $max_birthday = calculateBirthday($max_age);
+        $min_birthday = Helper::calculateBirthday($min_age);
+        $max_birthday = Helper::calculateBirthday($max_age);
 
         $results =  User::whereRaw( 'gender = ? AND belt = ? AND weight = ? AND dob BETWEEN ? AND ? '
             , array($gender, $belt, $weight, $max_birthday, $min_birthday) )

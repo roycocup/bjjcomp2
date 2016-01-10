@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\User;
+use App\Helper;
 
 class UserController extends BaseController {
 
@@ -13,8 +14,8 @@ class UserController extends BaseController {
 		$genders = array('male', 'female');
 		$age_categories = $user->age_categories;
 		$belts = $user->belt_colours;
-		$menWeights = getMenWeights();
-		$womenWeights = getWomenWeights();
+		$menWeights = Helper::getMenWeights();
+		$womenWeights = Helper::getWomenWeights();
 
 		//gender / age-group / belt / weight
 		foreach ($genders as $gender){
@@ -45,7 +46,7 @@ class UserController extends BaseController {
 
 
 		
-		return View::make('userbrokenlist')->with('data', $data);
+		return view('userbrokenlist')->with('data', $data);
 	}
 
 

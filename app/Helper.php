@@ -7,10 +7,10 @@ class Helper {
 	static function getWeightStr($str, $gender){
 
 		if ($gender == 'male'){
-			$men_weights = getMenWeights();
+			$men_weights = Helper::getMenWeights();
 			return $men_weights[$str];
 		} else {
-			$women_weights = getWomenWeights();
+			$women_weights = Helper::getWomenWeights();
 			return $women_weights[$str];
 		}
 
