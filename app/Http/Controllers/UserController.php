@@ -1,5 +1,5 @@
 <?php
-namespace app\Http\Controllers; 
+namespace App\Http\Controllers; 
 
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\User;

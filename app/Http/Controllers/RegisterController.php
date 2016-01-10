@@ -1,5 +1,5 @@
 <?php
-namespace app\Http\Controllers; 
+namespace App\Http\Controllers; 
 
 use Illuminate\Support\MessageBag;
 use Illuminate\Routing\Controller as BaseController;

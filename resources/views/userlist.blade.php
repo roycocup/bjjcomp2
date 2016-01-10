@@ -1,7 +1,6 @@
 @extends('layout')
 
 @section('content')
-
 	<table class="table table-stripped table-condensed">
 		<thead>
 			<tr>
@@ -21,7 +20,7 @@
     	<?php 
     		$dob = new DateTime($user['dob']); 
     		$age = $dob->diff($now);
-    		$weight = getWeightStr($user['weight'], $user['gender']);
+    		$weight = App\Helper::getWeightStr($user['weight'], $user['gender']);
     	?>
     		<tr class="{{$user['belt']}}">
 				<td>{{$user['f_name']}}</td>
