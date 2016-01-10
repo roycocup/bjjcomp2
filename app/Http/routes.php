@@ -11,9 +11,44 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/', 'HomeController@showHome');
+
+
+Route::get('users', function(){
+	$users = User::all();
+	return View::make('users')->with('users', $users);
 });
+
+Route::match(array('GET', 'POST'),'register', 'RegisterController@showRegister');
+
+Route::get('/fighter-list', 'UserController@showList');
+Route::get('/fighter-list-broken', 'UserController@showBrokenList');
+
+Route::get('/contacts', function(){
+	return View::make('contacts');
+});
+
+Route::get('/b', function(){
+	return View::make('b');
+});
+
+Route::get('/brackets', function(){
+	return View::make('brackets');
+});
+//Paypal Routes
+Route::post('payment', array(
+    'as' => 'payment',
+    'uses' => 'IndexController@postPayment',
+));
+// this is after make the payment, PayPal redirect back to your site
+Route::get('payment/status', array(
+    'as' => 'payment.status',
+    'uses' => 'IndexController@getPaymentStatus',
+));
+
+Route::get('/calendarDownload', 'HomeController@getDownload');
+
 
 /*
 |--------------------------------------------------------------------------
