@@ -46,6 +46,9 @@ Route::get('payment/status', array(
 Route::get('/calendarDownload', 'HomeController@getDownload');
 
 
+Route::get('/twiterTimeline', 'RestController@getTwitter');
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes

@@ -123,10 +123,6 @@
 				<option value="heavy">Heavy (>74Kg)</option>
 			</select>
 		</div>
-		<br><br>
-		<div>
-			<label><input type="checkbox" required> I owe Luiz £20 for this registration.</label>
-		</div>
 		<p class="help-block"></p>
 	</div>
 	
@@ -136,7 +132,7 @@
 
 	<div class="form-group row">
 		<div class="col-md-12">
-			<button type="submit" class="btn btn-lg btn-primary pull-right">Register!</button>	
+			<button type="submit" class="btn btn-lg btn-primary pull-right">Go to Payment</button>	
 		</div>	
 	</div>
 	

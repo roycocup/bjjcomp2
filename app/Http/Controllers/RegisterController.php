@@ -3,13 +3,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\MessageBag;
 use Illuminate\Routing\Controller as BaseController;
+use App\Models\User; 
 
 class RegisterController extends BaseController {
 
 	
 	public function showRegister()
 	{
-		if ($_POST){
+		if ($_POST) {
 			
 			if (isset($_POST['gender']) && $_POST['gender'] == 'male' ){
 				$weight = @$_POST['men-weight'];
@@ -49,7 +50,7 @@ class RegisterController extends BaseController {
 				//not done yet
 				$messages = $validator->messages();
 				$data['errors']['messages'] = $messages;
-				return View::make('register')->with('data', $data);
+				return view('register')->with('data', $data);
 			}
 
 			//create a random one
@@ -66,43 +67,46 @@ class RegisterController extends BaseController {
 			if (strtotime($dob) > strtotime('15 years ago')){
 				$messages->add('too young', 'Your date of birth is '.$dob.'. Are you sure you are less than 15 years old ? ');
 				$data['errors']['messages'] = $messages;
-				return View::make('register')->with('data', $data);
+				return view('register')->with('data', $data);
 			}
 
 
 			//insert
 			$user = new User;
-			$user->email 	= $email;
-			$user->nickname = ($_POST['nickname'])? filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_EMAIL): '';
+			$user->email 		= $email;
+			$user->nickname 	= ($_POST['nickname'])? filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_EMAIL): '';
 			$user->f_name 	= filter_input(INPUT_POST, 'f_name', FILTER_SANITIZE_STRING);
 			$user->l_name 	= filter_input(INPUT_POST, 'l_name', FILTER_SANITIZE_STRING);
 			$user->dob 		= $dob;
-			$user->belt 	= filter_input(INPUT_POST, 'belt', FILTER_SANITIZE_STRING);
+			$user->belt 		= filter_input(INPUT_POST, 'belt', FILTER_SANITIZE_STRING);
 			$user->weight 	= $weight;
 			$user->gender 	= filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
 			$user->t_shirt_size 	= filter_input(INPUT_POST, 't_shirt_size', FILTER_SANITIZE_STRING);
 
-			try{
+
+			try {
 				$user->save();
-			} catch(Exception $e){
+			}  catch(Exception $e) {
 				if (stripos($e->getMessage(), 'users_email_unique') != false){
 					$messages->add('100', 'Email or user already exists. Are you sure you didn\'t register already?');
 					$data['errors']['messages'] = $messages;
-					return View::make('register')->with('data', $data);
+					return view('register')->with('data', $data);
 				}
 			}
 			
 			//send email confirmation
 			$data['success']['messages'] = $messages->add('101', 'Successfully Submited!');
-			$body = "You have successfully registered for a competition on the 10th of May in LFF<br>";
+			$body = "You have successfully registered for LFF BJJ Cup 3<br>";
 			$body .= "Name: {$user->f_name} {$user->l_name}<br>";
 			$body .= "Belt: {$user->belt}<br>";
 			$body .= "Weight: {$user->weight}<br>";
 			$body .= "<br>Good luck!<br>";
 			mail($user->email, 'LFF BJJ Competition Confirmation', $body); 
-			return View::make('register')->with('data', $data);
+			return view('register')->with('data', $data);
 			//$user->id
 		}
+
+		// if not post
 		return view('register');
 	}
 
