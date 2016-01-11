@@ -16,8 +16,7 @@
 namespace App\API\Twitter; 
 
 
-class TwitterAPIExchange
-{
+class TwitterAPI {
     /**
      * @var string
      */
@@ -85,7 +84,7 @@ class TwitterAPIExchange
             || !isset($settings['consumer_key'])
             || !isset($settings['consumer_secret']))
         {
-            throw new Exception('Make sure you are passing in the correct parameters');
+            throw new Exception('One of the settings is missing');
         }
 
         $this->oauth_access_token = $settings['oauth_access_token'];

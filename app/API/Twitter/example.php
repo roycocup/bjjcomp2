@@ -1,13 +1,13 @@
 <?php
 ini_set('display_errors', 1);
-require_once('TwitterAPIExchange.php');
+require_once('TwitterAPI.php');
 
 /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
 $settings = array(
-    'oauth_access_token' => "",
-    'oauth_access_token_secret' => "",
-    'consumer_key' => "",
-    'consumer_secret' => ""
+    'oauth_access_token' => env("OAUTH_TOKEN"),
+    'oauth_access_token_secret' => env("OAUTH_SECRET"),
+    'consumer_key' => env("TWITTER_KEY"),
+    'consumer_secret' => env("TWITTER_SECRET")
 );
 
 /** URL for REST request, see: https://dev.twitter.com/docs/api/1.1/ **/
