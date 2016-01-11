@@ -29,10 +29,6 @@ Route::get('/contacts', function(){
 	return View::make('contacts');
 });
 
-Route::get('/b', function(){
-	return View::make('b');
-});
-
 Route::get('/brackets', function(){
 	return View::make('brackets');
 });

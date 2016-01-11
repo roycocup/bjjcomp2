@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<h1>LFF BJJ Competition II</h1> 
+		<h1>LFF BJJ Competition III</h1> 
 	</div>
 </div>
 
@@ -29,7 +29,7 @@ $last_user = User::find($last_id);
 						<i class="fa fa-thumbs-o-up fa-5x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<h4>Congratulations to everyone! See you next year!</h4>
+						<h4>Welcome to the third edition of the London Fight Factory BJJ Cup</h4>
 					</div>
 					{{-- <div class="col-xs-9 text-right">
 						<h4>{{(int)$num_users}}</h4>

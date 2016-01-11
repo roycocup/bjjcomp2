@@ -103,7 +103,7 @@ class RegisterController extends BaseController {
 			return View::make('register')->with('data', $data);
 			//$user->id
 		}
-		return View::make('register');
+		return view('register');
 	}
 
 

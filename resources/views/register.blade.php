@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<h1>LFF BJJ Competition II</h1>	
+		<h1>LFF BJJ Competition III</h1>	
 	</div>
 </div>
 
@@ -31,7 +31,7 @@
 
 <?php 
 	$now = time();
-	$closing_date = strtotime('08-05-2015'); //event is on 10-05-2015
+	$closing_date = strtotime('08-05-2016'); //event is on 10-05-2015
 	if($now >= $closing_date ):
 ?>
 
