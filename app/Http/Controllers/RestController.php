@@ -12,6 +12,7 @@ class RestController extends BaseController
 	
 	public function getTwitter()
 	{
+
 		$credentials = array(
 			'consumer_key' 			=> env("TWITTER_KEY"),
 			'consumer_secret' 		=> env("TWITTER_SECRET"),
@@ -56,7 +57,7 @@ class RestController extends BaseController
 			$i++;
 		}
 		
-		// echo json_encode($outputArray);
+		echo json_encode($outputArray);
 	}
 
 
