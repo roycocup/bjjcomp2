@@ -46,6 +46,8 @@ Route::get('payment/status', array(
 Route::get('/calendarDownload', 'HomeController@getDownload');
 
 
+
+// Rest API
 Route::get('/twiterTimeline', 'RestController@getTwitter');
 
 
