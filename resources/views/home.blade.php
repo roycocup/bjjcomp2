@@ -1,6 +1,7 @@
 @extends('layouts/main')
 
 @section('content')
+
 <div class="row">
 	<div class="col-md-12">
 		<h1><?=App\Helper::eventData("alterTitle");?></h1> 
@@ -72,8 +73,8 @@ $last_user = User::find($last_id);
 	<div class="col-md-4">
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<h4>Everybody gets a T-shirt!</h4>
-				<p>You get a free t-shirt for your participation in the event.</p>
+				<h4>Only the first 150 get a T-shirt!</h4>
+				<p>Hurry up and register and grab your free T-shirt!</p>
 			</div>
 		</div>
 	</div>

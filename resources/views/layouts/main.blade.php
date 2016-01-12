@@ -8,45 +8,43 @@
 	<link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="bower_components/jquery-ui/themes/base/all.css" />
 	<link rel="stylesheet" href="/css/main.css" />
-
-	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
-	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
 </head>
 <body>
+	
+	<div id="header" class="bg1">
+		
+	</div>
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/">
+						<img src="/img/lff_logo.jpg" style="max-width:30px;">
+					</a>
+				</div>
 
-
-
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/">
-					<img src="/img/lff_logo.jpg" style="max-width:30px;">
-				</a>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Listings<span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="/fighter-list">Fighters List</a></li>
+								<li><a href="/fighter-list-broken">Broken Down List</a></li>
+							</ul>
+						</li>
+						<li><a href="/register">Register</a></li>
+						<!-- <li><a href="/brackets">Brackets</a></li> -->
+						<li><a href="/contacts">Contacts</a></li>
+					</ul>
+				</div>
 			</div>
-
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Listings<span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="/fighter-list">Fighters List</a></li>
-							<li><a href="/fighter-list-broken">Broken Down List</a></li>
-						</ul>
-					</li>
-					<li><a href="/register">Register</a></li>
-					<!-- <li><a href="/brackets">Brackets</a></li> -->
-					<li><a href="/contacts">Contacts</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+		</nav>
 
 	<div class="container">
 		@yield('content')
@@ -77,6 +75,34 @@
 
 
 </body>
+
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script>
+	
+	// cache the window object
+	$window = $(window);
+ 
+	$('section[data-type="background"]').each(function(){
+		 // declare the variable to affect the defined data-type
+		 var $scroll = $(this);
+
+		$(window).scroll(function() {
+			// HTML5 proves useful for helping with creating JS functions!
+			// also, negative value because we're scrolling upwards                             
+			var yPos = -($window.scrollTop() / $scroll.data('speed')); 
+			 
+			// background position
+			var coords = '50% '+ yPos + 'px';
+	 
+			// move the background
+			$scroll.css({ backgroundPosition: coords });    
+		}); // end window scroll
+	});  // end section function
+</script>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

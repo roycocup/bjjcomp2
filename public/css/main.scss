@@ -1,0 +1,57 @@
+$bblack : #261C21;
+$bpurple : #660066;
+$bblue : #456884;
+$bbrown : #4E2E28;
+
+$blue-sky : #299DB6;
+$brown : #444444;
+
+body {
+	height: 100%;
+	font-family: 'Roboto', sans-serif;
+	color: $brown;
+}
+
+#header { 
+	min-height: 15em;
+	width: 100%;
+	&.bg1{ 
+		background-image: url("../img/IBJJF-Mundials.jpg"); 
+		background-position: center -200px;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		-webkit-background-size: cover;
+	    -moz-background-size: cover;
+	    -o-background-size: cover;
+	    background-size: cover;
+	}
+}
+
+
+
+// Broken down belt colours
+tr{
+	&.black { 
+		background-color: $bblack; 
+		color:white; 
+	}
+	&.purple { 
+		background-color: $bpurple; 
+		color: white 
+	}
+	&.blue { 
+		background-color: $bblue; 
+		color: white; 
+	}
+	&.brown { 
+		background-color: $bbrown; 
+		color: white; 
+	}
+}
+
+.footer { 
+	margin: 50px 0;
+	img { 
+		max-height: 200px;
+	}
+}
