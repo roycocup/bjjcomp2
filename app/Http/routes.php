@@ -48,7 +48,7 @@ Route::get('/calendarDownload', 'HomeController@getDownload');
 
 
 // Rest API
-Route::get('/twiterTimeline', 'RestController@getTwitter');
+Route::get('/twitterTimeline', 'RestController@getTwitter');
 
 
 /*
