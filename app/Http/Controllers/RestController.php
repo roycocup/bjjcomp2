@@ -25,7 +25,7 @@ class RestController extends BaseController
 
 		$params = array(
 			'screen_name' => 'LFF4EVER',
-			'count' => 5,
+			'count' => 50,
 			'exclude_replies' => true, 
 			'include_rts' => false,
 			'trim_user' => true,
