@@ -1,9 +1,9 @@
-@extends('layout')
+@extends('layouts/main')
 
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<h1>LFF BJJ Competition III</h1>	
+		<h1><?=App\Helper::eventData("title")?></h1>	
 	</div>
 </div>
 
@@ -30,9 +30,8 @@
 </div>	
 
 <?php 
-	$now = time();
-	$closing_date = strtotime('08-05-2016'); //event is on 10-05-2015
-	if($now >= $closing_date ):
+	$now = new DateTime();
+	if( $now >= App\Helper::eventData("registerCutoff") ):
 ?>
 
 <div class="form-group col-md-12">

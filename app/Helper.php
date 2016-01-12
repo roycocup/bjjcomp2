@@ -4,6 +4,17 @@ namespace App;
 
 class Helper {
 
+	static function eventData ($name) {
+		$eventData = [
+			'startDate' 		=> date_create("2016-05-08"),
+			'title' 			=> "LFF BJJ Cup 3",
+			'alterTitle' 		=> "LFF BJJ Competition 3",
+			'registerCutoff' 	=> date_create("2016-05-05"),
+			'promoUntil' 		=> date_create("2016-04-12"),
+		];
+		return $eventData[$name];
+	}
+
 	static function getWeightStr($str, $gender){
 
 		if ($gender == 'male'){

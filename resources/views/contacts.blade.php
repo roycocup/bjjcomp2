@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts/main')
 
 @section('content')
 <div class="col-md-12 well">

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts/main')
 
 @section('content')
 	<table class="table table-stripped table-condensed">

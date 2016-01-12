@@ -1,9 +1,9 @@
-@extends('layout')
+@extends('layouts/main')
 
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<h1>LFF BJJ Competition III</h1> 
+		<h1><?=App\Helper::eventData("alterTitle");?></h1> 
 	</div>
 </div>
 
@@ -53,16 +53,13 @@ $last_user = User::find($last_id);
 						<i class="fa fa-sun-o fa-5x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<h4>10th of May</h4>
-						<h5>Its a Sunday. Bring the family</h5>
+						<h4><?=App\Helper::eventData("startDate")->format("l jS F Y");?></h4>
+						<h5>Its a Sunday! Bring the family</h5>
 					</div>
 				</div>
 			</div>
 			<a href="#"></a>
 			<div class="panel-footer">
-				<span class="pull-left"></span><a href="/calendarDownload">Set your diary</a>
-				<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-				<div class="clearfix"></div>
 			</div>
 		</div>
 	</div>
@@ -84,8 +81,10 @@ $last_user = User::find($last_id);
 	<div class="col-md-4">
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<h4>Kids welcome!</h4>
-				<p>We'll have a Bouncing Castle for the Kids and a nice lady to paint their faces.</p>
+				<h4>Registration</h4>
+				<p>Registration will be £20 until <?=App\Helper::eventData("promoUntil")->format("l jS F")?></p>
+				<p>After that the price will be £25.</p>
+				<p>Registrations close on <?=App\Helper::eventData("registerCutoff")->format("l jS F Y")?></p>
 			</div>
 		</div>
 	</div>
@@ -109,8 +108,7 @@ $last_user = User::find($last_id);
 	</div> --}}
 	<div class="col-lg-12 well">
 		<h4>Info</h4>
-		<p>We've added a t-shirt size option in the registration so we can get enough of those sizes.</p>
-		<p>For those who registered already, we selected a size for you, so please email <a href="mailto:rodrigo@rodderscode.co.uk?subject=T-shirt%20size">Trepeiro</a> if you think its not the right size</p>
+		<p>No info yet.</p>
 	</div>
 </div>          
 
