@@ -8,22 +8,41 @@ $brown : #444444;
 
 body {
 	height: 100%;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Roboto', sans-serif !important;
 	color: $brown;
 }
+
+.navbar{
+	font-size: 20px;
+	#collapsable-navbar{
+		line-height: 1.5em;	
+	}
+	.navbar-brand{
+		height: auto; 
+		#lff_logo{
+			max-height:40px;
+		}	
+	}	
+}
+
+@mixin background-size($type) {
+	-webkit-background-size: $type;
+	-moz-background-size: $type;
+	-o-background-size: $type;
+	background-size: $type;
+}
+
+
 
 #header { 
 	min-height: 15em;
 	width: 100%;
 	&.bg1{ 
 		background-image: url("../img/IBJJF-Mundials.jpg"); 
-		background-position: center -200px;
+		background-position: center -300px;
 		background-repeat: no-repeat;
 		background-attachment: fixed;
-		-webkit-background-size: cover;
-	    -moz-background-size: cover;
-	    -o-background-size: cover;
-	    background-size: cover;
+		@include background-size(cover);
 	}
 }
 

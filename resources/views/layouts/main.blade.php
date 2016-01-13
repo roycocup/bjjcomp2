@@ -11,25 +11,23 @@
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
 </head>
 <body>
-	
-	<div id="header" class="bg1">
-		
-	</div>
-		<nav class="navbar navbar-default" role="navigation">
+
+	<nav class="navbar navbar-default" role="navigation">
 			<div class="container">
+
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapsable-navbar">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand" href="/">
-						<img src="/img/lff_logo.jpg" style="max-width:30px;">
+						<img id="lff_logo" src="/img/lff_logo.jpg">
 					</a>
 				</div>
 
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<div id="collapsable-navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Listings<span class="caret"></span></a>
@@ -43,8 +41,13 @@
 						<li><a href="/contacts">Contacts</a></li>
 					</ul>
 				</div>
+				
 			</div>
 		</nav>
+	<div id="header" class="bg1">
+		
+	</div>
+		
 
 	<div class="container">
 		@yield('content')
