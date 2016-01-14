@@ -59,6 +59,27 @@ class Helper {
 		return $year.'-01-01';
 	}
 
+
+	static function mapRegistrationFieldNames($fieldName){
+		$map = array(
+			"nickname" 		=> "nickname",
+			"email" 		=> "Email",
+			"f_name" 		=> "First Name", 
+			"l_name" 		=> "Last Name",
+			"dob" 			=> "Date of Birth",
+			"gender" 		=> "Gender",
+			"belt" 			=> "Belt",
+			"men-weight" 	=> "Weight",
+			"women-weight" 	=> "Weight",
+			"t_shirt_size" 	=> "T-shirt Size",
+		); 
+
+		if (array_key_exists($fieldName, $map))
+			return $map[$fieldName];
+		else
+			return $fieldName;
+	}
+
 }
 
  

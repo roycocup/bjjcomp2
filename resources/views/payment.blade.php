@@ -30,6 +30,28 @@
 </div>
 
 
+	<div class="row">
+		<div class="col-md-offset-2 col-md-8">
+			<h2>Confirm your registration</h2>
+			<p>Make your payment via paypal. If you need to edit anything, just hit the back button on your browser.</p>
+
+			<div class="row well">
+				<ul>
+				<?php foreach ($userData as $key => $value): ?>
+					<?php if ($userData['gender'] == 'male' && $key == "women-weight") continue;?>
+					<?php if ($userData['gender'] == 'female' && $key == "men-weight") continue;?>
+					<li><?=App\Helper::mapRegistrationFieldNames($key)?>: <?=$value?></li>
+				<?php endforeach; ?>
+				</ul>
+			</div>
+
+			<button class="btn btn-primary">Looks good!</button>
+
+		</div>
+	</div>
+
+
+{{-- hold it
 
 <?php if (env("DEBUG") === false ): ?>
 
@@ -110,4 +132,8 @@
 	</div>
 
 <?php endif; ?>
+
+end of hold --}}
+
+
 @stop
