@@ -8,7 +8,7 @@
 </div>
 
 
-<div>
+<div class="notices">
 	<?php if (!empty($data['errors'])): ?>
 			<div class="alert alert-danger">
 			<?php

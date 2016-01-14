@@ -2,14 +2,30 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\MessageBag;
 
 class HomeController extends BaseController
 {
     
-	public function showHome()
-	{
-		return view('home');
+    private $data = []; 
+    private $messages;
+
+    public function __construct(){
+    	
+    	$this->messages = new MessageBag();
+    }
+
+	public function showHome(){
+		return view('home')->with('data', $this->data);
+	}
+
+
+	public function thankyou(){
+		$this->messages->add("thank you", "Thank you for registering. Check your mailbox for confirmation.");
+		$this->data['success']['messages'] = $this->messages;
+		return view('home')->with('data', $this->data);
 	}
 
 

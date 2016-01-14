@@ -7,9 +7,26 @@ use App\Models\User;
 
 class RegisterController extends BaseController {
 
+	private $userData = array();
 	
 	public function showRegister()
 	{
+		if ($_POST) {
+			//second step
+			$this->userData = $_POST;
+			return view('payment')->with('userData', $this->userData);
+		} else {
+			return view('register');	
+		}
+		
+	}
+
+
+	private function register(){
+		
+		$data = array();
+		$messages = new MessageBag();
+
 		if ($_POST) {
 			
 			if (isset($_POST['gender']) && $_POST['gender'] == 'male' ){
@@ -41,9 +58,7 @@ class RegisterController extends BaseController {
 				)
 			);
 
-			$data = array();
-			$messages = new MessageBag();
-
+			
 			//validate
 			if ($validator->fails()){
 				//check email is not used already
@@ -75,13 +90,13 @@ class RegisterController extends BaseController {
 			$user = new User;
 			$user->email 		= $email;
 			$user->nickname 	= ($_POST['nickname'])? filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_EMAIL): '';
-			$user->f_name 	= filter_input(INPUT_POST, 'f_name', FILTER_SANITIZE_STRING);
-			$user->l_name 	= filter_input(INPUT_POST, 'l_name', FILTER_SANITIZE_STRING);
-			$user->dob 		= $dob;
+			$user->f_name 		= filter_input(INPUT_POST, 'f_name', FILTER_SANITIZE_STRING);
+			$user->l_name 		= filter_input(INPUT_POST, 'l_name', FILTER_SANITIZE_STRING);
+			$user->dob 			= $dob;
 			$user->belt 		= filter_input(INPUT_POST, 'belt', FILTER_SANITIZE_STRING);
-			$user->weight 	= $weight;
-			$user->gender 	= filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
-			$user->t_shirt_size 	= filter_input(INPUT_POST, 't_shirt_size', FILTER_SANITIZE_STRING);
+			$user->weight 		= $weight;
+			$user->gender 		= filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
+			$user->t_shirt_size = filter_input(INPUT_POST, 't_shirt_size', FILTER_SANITIZE_STRING);
 
 
 			try {
@@ -102,12 +117,8 @@ class RegisterController extends BaseController {
 			$body .= "Weight: {$user->weight}<br>";
 			$body .= "<br>Good luck!<br>";
 			mail($user->email, 'LFF BJJ Competition Confirmation', $body); 
-			return view('register')->with('data', $data);
-			//$user->id
 		}
-
-		// if not post
-		return view('register');
+		return view('home')->with('data', $data);
 	}
 
 

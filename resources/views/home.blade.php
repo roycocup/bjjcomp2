@@ -8,16 +8,36 @@
 	</div>
 </div>
 
+<div class="notices">
+	<?php if (!empty($data['errors'])): ?>
+			<div class="alert alert-danger">
+			<?php
+				foreach ($data['errors']['messages']->getMessages() as $message) {
+					echo $message[0].'<br>';
+				}
+			?>
+			</div>
+	<?php endif; ?>
+	<?php if (!empty($data['success'])): ?>
+			<div class="alert alert-success">
+			<?php
+				foreach ($data['success']['messages']->getMessages() as $message) {
+					echo $message[0].'<br>';
+				}
+			?>
+			</div>
+	<?php endif; ?>
+</div>	
+
 <div style="margin-top: 50px;"></div>
 
 <?php
-use App\Models\User;   
-$user = new User();
-$num_users = count($user->all());
+	use App\Models\User;   
+	$user = new User();
+	$num_users = count($user->all());
 
-$last_id = DB::table('users')->max('id');
-$last_user = User::find($last_id);
-
+	$last_id = DB::table('users')->max('id');
+	$last_user = User::find($last_id);
 ?>
 
 
