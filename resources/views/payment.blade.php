@@ -30,13 +30,14 @@
 </div>
 
 
+
 <?php if (env("DEBUG") === false ): ?>
 
 	<h1>PRODUCTION!!!</h1>
 	<div class="row">
 		<div class="col-md-offset-2 col-md-8">
 			<h2>Confirm your registration</h2>
-			<p>Make your payment via paypal or via bitcoin.</p>
+			<p>Make your payment via paypal. If you need to edit anything, just hit the back button on your browser.</p>
 
 			<div class="row well">
 				<ul>
