@@ -45,7 +45,7 @@
 				</ul>
 			</div>
 
-			<button class="btn btn-primary">Looks good!</button>
+			<button id="goodToGo" class="btn btn-primary" >Looks good!</button>
 
 		</div>
 	</div>
@@ -134,6 +134,5 @@
 <?php endif; ?>
 
 end of hold --}}
-
 
 @stop
