@@ -42,6 +42,8 @@ Route::get('/cancel', 'HomeController@showHome');
 // Rest API
 Route::get('/twitterTimeline', 'RestController@getTwitter');
 
+Route::get('/notify', 'RegisterController@paypalCallback');
+
 
 /*
 |--------------------------------------------------------------------------

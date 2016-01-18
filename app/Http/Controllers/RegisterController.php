@@ -122,4 +122,9 @@ class RegisterController extends BaseController {
 	}
 
 
+	public function paypalCallback(){
+		$date = date_create();
+		file_put_contents("paypalLogger", $date->format("Y-m-d H:i:s")." " . json_encode($_REQUEST)."\n\r", FILE_APPEND ); 
+	}
+
 }
