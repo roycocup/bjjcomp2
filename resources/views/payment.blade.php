@@ -45,16 +45,38 @@
 				</ul>
 			</div>
 
-			<button id="goodToGo" class="btn btn-primary" >Looks good!</button>
+			<script src="https://checkout.stripe.com/checkout.js"></script>
 
-			<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
-				<input name="notify_url" value="http://v2.lffcup.co.uk/notify" type="hidden">
-				<input type="hidden" name="custom" value="this is my message">
-				<input type="hidden" name="cmd" value="_s-xclick">
-				<input type="hidden" name="hosted_button_id" value="2L4H4L2GFT2XA">
-				<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-				<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
-			</form>
+			<button id="customButton">Purchase</button>
+
+			<script>
+			  var handler = StripeCheckout.configure({
+			    key: 'pk_test_FRBRSgJc2H6H0gZR1XKxgapG',
+			    image: '/img/documentation/checkout/marketplace.png',
+			    locale: 'auto',
+			    token: function(token) {
+			      // Use the token to create the charge with a server-side script.
+			      // You can access the token ID with `token.id`
+			      alert(token.id);
+			    }
+			  });
+
+			  $('#customButton').on('click', function(e) {
+			    // Open Checkout with further options
+			    handler.open({
+			      name: 'Demo Site',
+			      description: '2 widgets',
+			      currency: "gbp",
+			      amount: 2000
+			    });
+			    e.preventDefault();
+			  });
+
+			  // Close Checkout on page navigation
+			  $(window).on('popstate', function() {
+			    handler.close();
+			  });
+			</script>
 
 		</div>
 	</div>
