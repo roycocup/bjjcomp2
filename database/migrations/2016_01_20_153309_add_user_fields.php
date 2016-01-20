@@ -16,6 +16,7 @@ class AddUserFields extends Migration
 		{
 			$table->string('usertoken')->nullable();
 			$table->datetime('payment_date')->nullable();
+			$table->string('status')->nullable();
 		});
 	}
 
@@ -28,7 +29,7 @@ class AddUserFields extends Migration
 	{
 		Schema::table('users', function($table)
 		{
-			$table->dropColumn('usertoken', 'payment_date');
+			$table->dropColumn('usertoken', 'payment_date', 'status');
 		});
 	}
 }
