@@ -22,12 +22,6 @@ class HomeController extends BaseController
 	}
 
 
-	public function thankyou(){
-		$this->messages->add("thank you", "Thank you for registering. Check your mailbox for confirmation.");
-		$this->data['success']['messages'] = $this->messages;
-		return view('home')->with('data', $this->data);
-	}
-
 
 	public function getDownload(){
 		$file= public_path(). "/img/LFF_BJJ_CUP.ics";
@@ -35,6 +29,12 @@ class HomeController extends BaseController
 			  'Content-Type: text/calendar',
 			);
 		return Response::download($file, 'lff_bjj_cup.ics', $headers);
+	}
+
+	public function thankyou(){
+		$this->messages->add("thank you", "Thank you for registering. Check your mailbox for confirmation.");
+		$this->data['success']['messages'] = $this->messages;
+		return view('home')->with('data', $this->data);
 	}
 
 }

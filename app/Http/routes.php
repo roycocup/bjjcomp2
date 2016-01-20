@@ -35,14 +35,15 @@ Route::get('/brackets', function(){
 
 // Route::get('/calendarDownload', 'HomeController@getDownload');
 
-Route::get('/thankyou', 'HomeController@thankyou');
 
 Route::get('/cancel', 'HomeController@showHome');
+Route::get('/paymentconfirm', 'RegisterController@paymentConfirm');
+
+Route::get('/thankyou', 'HomeController@thankyou');
 
 // Rest API
 Route::get('/twitterTimeline', 'RestController@getTwitter');
 
-Route::get('/notify', 'RegisterController@paypalCallback');
 
 
 /*

@@ -8,13 +8,17 @@ use App\Models\User;
 class RegisterController extends BaseController {
 
 	private $userData = array();
+	private $userToken = null;
 	
 	public function showRegister()
 	{
 		if ($_POST) {
 			//second step
 			$this->userData = $_POST;
-			return view('payment')->with('userData', $this->userData);
+			$this->userToken = md5(json_encode($_POST));
+			return view('payment')
+				->with('userData', $this->userData)
+				->with("userToken", $this->userToken);
 		} else {
 			return view('register');	
 		}
@@ -122,9 +126,11 @@ class RegisterController extends BaseController {
 	}
 
 
-	public function paypalCallback(){
-		$date = date_create();
-		file_put_contents("paypalLogger", $date->format("Y-m-d H:i:s")." " . json_encode($_REQUEST)."\n\r", FILE_APPEND ); 
+	public function paymentConfirm(){
+		// $date = date_create();
+		// file_put_contents("paypalLogger", $date->format("Y-m-d H:i:s")." " . json_encode($_REQUEST)."\n\r", FILE_APPEND );
+		Log::info("Payment coming in: " . json_encode($_REQUEST));
+		return redirect("/thankyou");
 	}
 
 }
