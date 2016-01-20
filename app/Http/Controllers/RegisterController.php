@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\MessageBag;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\User; 
+use Log;
 
 class RegisterController extends BaseController {
 
