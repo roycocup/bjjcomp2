@@ -8,6 +8,7 @@ use Log;
 use Braintree_Configuration;
 use Braintree_ClientToken;
 use Braintree_Transaction;
+use Validator; 
 
 class RegisterController extends BaseController {
 
@@ -20,19 +21,17 @@ class RegisterController extends BaseController {
 		Braintree_Configuration::merchantId('mhmz7d5qhkkrtxzb');
 		Braintree_Configuration::publicKey('vv339y9bx7q7mq2d');
 		Braintree_Configuration::privateKey('0222b4e4fb050299206253fa3058e366');
-		$clientToken = Braintree_ClientToken::generate();
+		$this->userToken = Braintree_ClientToken::generate();
 
 		if ($_POST) {
 			//second step
 			$this->userData = $_POST;
-			$this->userToken = $clientToken;
 			return view('payment')
 				->with("userData", $this->userData)
 				->with("userToken", $this->userToken);
-		} else {
-			return view('register');	
-		}
-		
+		} 
+
+		return view('register');	
 	}
 
 
@@ -48,8 +47,6 @@ class RegisterController extends BaseController {
 				'amount' => '20.00',
 				'paymentMethodNonce' => $nonce
 			]);
-			echo "<pre>";
-			var_dump($result);
 			$details = [ 
 				$result->transaction->paypal["payerEmail"] => [
 					"id" 		=> $result->transaction->id,
@@ -68,7 +65,7 @@ class RegisterController extends BaseController {
 		}
 
 
-		//return redirect("/thankyou");
+		return redirect("/thankyou");
 	}
 
 
@@ -151,6 +148,7 @@ class RegisterController extends BaseController {
 
 			try {
 				$user->save();
+				$data['success']['messages'] = $this->messages->add('101', 'Successfully Submited!');
 			}  catch(Exception $e) {
 				if (stripos($e->getMessage(), 'users_email_unique') != false){
 					$messages->add('100', 'Email or user already exists. Are you sure you didn\'t register already?');
@@ -159,16 +157,18 @@ class RegisterController extends BaseController {
 				}
 			}
 			
-			//send email confirmation
-			$data['success']['messages'] = $messages->add('101', 'Successfully Submited!');
-			$body = "You have successfully registered for LFF BJJ Cup 3<br>";
-			$body .= "Name: {$user->f_name} {$user->l_name}<br>";
-			$body .= "Belt: {$user->belt}<br>";
-			$body .= "Weight: {$user->weight}<br>";
-			$body .= "<br>Good luck!<br>";
-			mail($user->email, 'LFF BJJ Competition Confirmation', $body); 
-		}
-		return view('home')->with('data', $data);
+		}	
+	}
+
+
+	public function sendEmail($userEmail){
+		 //send email confirmation
+		$body = "You have successfully registered for LFF BJJ Cup 3<br>";
+		$body .= "Name: {$user->f_name} {$user->l_name}<br>";
+		$body .= "Belt: {$user->belt}<br>";
+		$body .= "Weight: {$user->weight}<br>";
+		$body .= "<br>Good luck!<br>";
+		mail($userEmail, 'LFF BJJ Competition Confirmation', $body); 
 	}
 
 }

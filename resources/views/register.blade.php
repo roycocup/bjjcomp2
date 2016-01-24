@@ -134,7 +134,6 @@
 			<button type="submit" class="btn btn-lg btn-primary pull-right">Go to Payment</button>	
 		</div>	
 	</div>
-	
 
 </form>
 
