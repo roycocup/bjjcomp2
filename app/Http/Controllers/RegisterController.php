@@ -5,6 +5,9 @@ use Illuminate\Support\MessageBag;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\User; 
 use Log;
+use Braintree_Configuration;
+use Braintree_ClientToken;
+use Braintree_Transaction;
 
 class RegisterController extends BaseController {
 
@@ -13,17 +16,59 @@ class RegisterController extends BaseController {
 	
 	public function showRegister()
 	{
+		Braintree_Configuration::environment('sandbox');
+		Braintree_Configuration::merchantId('mhmz7d5qhkkrtxzb');
+		Braintree_Configuration::publicKey('vv339y9bx7q7mq2d');
+		Braintree_Configuration::privateKey('0222b4e4fb050299206253fa3058e366');
+		$clientToken = Braintree_ClientToken::generate();
+
 		if ($_POST) {
 			//second step
 			$this->userData = $_POST;
-			$this->userToken = md5(json_encode($_POST));
+			$this->userToken = $clientToken;
 			return view('payment')
-				->with('userData', $this->userData)
+				->with("userData", $this->userData)
 				->with("userToken", $this->userToken);
 		} else {
 			return view('register');	
 		}
 		
+	}
+
+
+	public function paymentConfirm(){
+		Braintree_Configuration::environment('sandbox');
+		Braintree_Configuration::merchantId('mhmz7d5qhkkrtxzb');
+		Braintree_Configuration::publicKey('vv339y9bx7q7mq2d');
+		Braintree_Configuration::privateKey('0222b4e4fb050299206253fa3058e366');
+		Log::info("Payment coming in: " . json_encode($_REQUEST));
+		if ($_POST["payment_method_nonce"]){
+			$nonce = $_POST["payment_method_nonce"];
+			$result = Braintree_Transaction::sale([
+				'amount' => '20.00',
+				'paymentMethodNonce' => $nonce
+			]);
+			echo "<pre>";
+			var_dump($result);
+			$details = [ 
+				$result->transaction->paypal["payerEmail"] => [
+					"id" 		=> $result->transaction->id,
+					"status" 	=> $result->transaction->status,
+					"amount" 	=> $result->transaction->amount,
+					"currency" 	=> $result->transaction->currencyIsoCode,
+					"date" 		=> $result->transaction->createdAt->date,
+					"paymentId" => $result->transaction->paypal["paymentId"],
+					"payerId" 	=> $result->transaction->paypal["payerId"],
+					"payerFirstName" 	=> $result->transaction->paypal["payerFirstName"],
+					"payerLastName" 	=> $result->transaction->paypal["payerLastName"],
+					]
+				];
+			Log::info(json_encode($details));
+			Log::info(serialize($result));
+		}
+
+
+		//return redirect("/thankyou");
 	}
 
 
@@ -124,14 +169,6 @@ class RegisterController extends BaseController {
 			mail($user->email, 'LFF BJJ Competition Confirmation', $body); 
 		}
 		return view('home')->with('data', $data);
-	}
-
-
-	public function paymentConfirm(){
-		// $date = date_create();
-		// file_put_contents("paypalLogger", $date->format("Y-m-d H:i:s")." " . json_encode($_REQUEST)."\n\r", FILE_APPEND );
-		Log::info("Payment coming in: " . json_encode($_REQUEST));
-		return redirect("/thankyou");
 	}
 
 }

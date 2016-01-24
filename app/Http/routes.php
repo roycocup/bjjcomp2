@@ -20,8 +20,6 @@ Route::get('users', function(){
 	return View::make('users')->with('users', $users);
 });
 
-Route::match(array('GET', 'POST'),'register', 'RegisterController@showRegister');
-
 Route::get('/fighter-list', 'UserController@showList');
 Route::get('/fighter-list-broken', 'UserController@showBrokenList');
 
@@ -35,11 +33,11 @@ Route::get('/brackets', function(){
 
 // Route::get('/calendarDownload', 'HomeController@getDownload');
 
-
-Route::get('/cancel', 'HomeController@showHome');
-Route::get('/paymentconfirm', 'RegisterController@paymentConfirm');
-
+// Register and Payment
+Route::match(array('GET', 'POST'),'register', 'RegisterController@showRegister');
+Route::post('/paymentconfirm', 'RegisterController@paymentConfirm');
 Route::get('/thankyou', 'HomeController@thankyou');
+Route::get('/cancel', 'HomeController@showHome');
 
 // Rest API
 Route::get('/twitterTimeline', 'RestController@getTwitter');
