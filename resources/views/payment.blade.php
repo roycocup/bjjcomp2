@@ -48,21 +48,36 @@
 </div>
 
 <div class="row">
-	<div class="col-md-offset-3 col-md-3 well center-block">
-		<form id="checkout" method="post" action="<?=env("URL")?>/paymentconfirm">
-			<h4>Select payment format</h4>
-			<div id="payment-form"></div>
-			<input class="btn btn-primary" type="submit" value="Make Payment">
-		</form>
+	<div class="col-md-3 pull-right">
+		<button id="registerConfirm" class="btn btn-primary">Confirm!</button>
 	</div>
 </div>
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<form id="checkout" method="post" action="<?=env("URL")?>/paymentconfirm">
+					<h4>Select payment format</h4>
+					<div id="payment-form"></div>
+					<input class="btn btn-primary" type="submit" value="Make Payment">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
 <script>
 	braintree.setup("<?=$userToken?>", "dropin", {
 		container: "payment-form"
 	});
+
+	$("#registerConfirm").click(function(event) {
+		// TODO: confirm registration here via ajax and come back to show modal
+		$("#myModal").modal();
+	});
+
 </script>
 
 @stop
