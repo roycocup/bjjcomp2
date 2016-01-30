@@ -70,11 +70,16 @@ class RegisterController extends BaseController {
 					]
 				];
 
-			$tempUser = TempUser::where("email", $result->transaction->paypal["payerEmail"]);
-			$tempUser->status = "Paid";
-			$tempUser->save();
-			$user = new User($tempUser);
-			$user->save();
+			// $tempUser = TempUser::where("email", $result->transaction->paypal["payerEmail"])->get();
+			// var_dump($tempUser, $result->transaction->paypal["payerEmail"]); die;
+			// $tempUser->status = "Paid";
+			// $tempUser->save();
+			// $user = new User($tempUser);
+			// $user->save();
+
+			echo "<pre>";
+			print_r($result); 
+			die;
 
 			Log::info(json_encode($details));
 			Log::info(serialize($result));
