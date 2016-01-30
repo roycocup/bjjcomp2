@@ -74,7 +74,7 @@
 	});
 
 	$("#registerConfirm").click(function(event) {
-		// TODO: confirm registration here via ajax and come back to show modal
+		// TODO: confirm registration here form submition and come back to show modal
 		$("#myModal").modal();
 	});
 

@@ -9,20 +9,11 @@
 
 
 <div class="notices">
-	<?php if (!empty($data['errors'])): ?>
+	<?php if ( !empty($messages) && ($messages->any()) ): ?>
 			<div class="alert alert-danger">
 			<?php
-				foreach ($data['errors']['messages']->getMessages() as $message) {
-					echo $message[0].'<br>';
-				}
-			?>
-			</div>
-	<?php endif; ?>
-	<?php if (!empty($data['success'])): ?>
-			<div class="alert alert-success">
-			<?php
-				foreach ($data['success']['messages']->getMessages() as $message) {
-					echo $message[0].'<br>';
+				foreach ($messages->all() as $message) {
+					echo $message.'<br>';
 				}
 			?>
 			</div>
@@ -125,8 +116,7 @@
 		<p class="help-block"></p>
 	</div>
 	
-	<div class="form-group row">
-		
+	<div class="form-group row">		
 	</div>	
 
 	<div class="form-group row">

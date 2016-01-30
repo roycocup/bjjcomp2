@@ -38,6 +38,7 @@ Route::match(array('GET', 'POST'),'register', 'RegisterController@showRegister')
 Route::post('/paymentconfirm', 'RegisterController@paymentConfirm');
 Route::get('/thankyou', 'HomeController@thankyou');
 Route::get('/cancel', 'HomeController@showHome');
+Route::post('/savetemp', 'RegisterController@paymentConfirm');
 
 // Rest API
 Route::get('/twitterTimeline', 'RestController@getTwitter');

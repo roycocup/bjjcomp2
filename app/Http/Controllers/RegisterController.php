@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\MessageBag;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\User; 
+use App\Models\TempUser;
 use Log;
 use Braintree_Configuration;
 use Braintree_ClientToken;
@@ -24,7 +25,11 @@ class RegisterController extends BaseController {
 		$this->userToken = Braintree_ClientToken::generate();
 
 		if ($_POST) {
-			//second step
+			$messages = $this->register();
+
+			if ($messages->any())
+				return view('register')->with("messages", $messages);	
+			
 			$this->userData = $_POST;
 			return view('payment')
 				->with("userData", $this->userData)
@@ -53,7 +58,7 @@ class RegisterController extends BaseController {
 					"status" 	=> $result->transaction->status,
 					"amount" 	=> $result->transaction->amount,
 					"currency" 	=> $result->transaction->currencyIsoCode,
-					"date" 		=> $result->transaction->createdAt->date,
+					"date" 		=> $result->transaction->createdAt,
 					"paymentId" => $result->transaction->paypal["paymentId"],
 					"payerId" 	=> $result->transaction->paypal["payerId"],
 					"payerFirstName" 	=> $result->transaction->paypal["payerFirstName"],
@@ -98,7 +103,7 @@ class RegisterController extends BaseController {
 					'email' 		=> 'email',
 					'first name' 	=> 'required',
 					'last name' 	=> 'required',
-					'date of birth' => 'required',
+					'date of birth' => 'required|date',
 					'gender' 		=> 'required',
 					'belt' 			=> 'required',
 					'weight' 		=> 'required',
@@ -111,49 +116,47 @@ class RegisterController extends BaseController {
 				//check email is not used already
 				//not done yet
 				$messages = $validator->messages();
-				$data['errors']['messages'] = $messages;
-				return view('register')->with('data', $data);
+				return $messages;
 			}
 
-			//create a random one
-			if (empty($_POST['email']))
-				$email = substr(md5(@$_POST['f_name'].@$_POST['l_name'].@$_POST['dob'].@$_POST['belt']), 15)."@bjjcomp.club";
-			else
-				$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 
-
+			$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 			$dob = filter_input(INPUT_POST, 'dob', FILTER_SANITIZE_STRING);
 			$dob = str_ireplace('/', '-', $dob);
 			$dob = date('Y-m-d', strtotime($dob));
 
 			if (strtotime($dob) > strtotime('15 years ago')){
 				$messages->add('too young', 'Your date of birth is '.$dob.'. Are you sure you are less than 15 years old ? ');
-				$data['errors']['messages'] = $messages;
-				return view('register')->with('data', $data);
+				return $messages;
+			}
+
+
+			if ( User::where("email", $email)->first() ){
+				$messages->add('email exists', "This email has already registered");
+				return $messages;
 			}
 
 
 			//insert
-			$user = new User;
-			$user->email 		= $email;
-			$user->nickname 	= ($_POST['nickname'])? filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_EMAIL): '';
-			$user->f_name 		= filter_input(INPUT_POST, 'f_name', FILTER_SANITIZE_STRING);
-			$user->l_name 		= filter_input(INPUT_POST, 'l_name', FILTER_SANITIZE_STRING);
-			$user->dob 			= $dob;
-			$user->belt 		= filter_input(INPUT_POST, 'belt', FILTER_SANITIZE_STRING);
-			$user->weight 		= $weight;
-			$user->gender 		= filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
-			$user->t_shirt_size = filter_input(INPUT_POST, 't_shirt_size', FILTER_SANITIZE_STRING);
+			$tempUser = new TempUser;
+			$tempUser->email 		= $email;
+			$tempUser->nickname 	= ($_POST['nickname'])? filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_EMAIL): '';
+			$tempUser->f_name 		= filter_input(INPUT_POST, 'f_name', FILTER_SANITIZE_STRING);
+			$tempUser->l_name 		= filter_input(INPUT_POST, 'l_name', FILTER_SANITIZE_STRING);
+			$tempUser->dob 			= $dob;
+			$tempUser->belt 		= filter_input(INPUT_POST, 'belt', FILTER_SANITIZE_STRING);
+			$tempUser->weight 		= $weight;
+			$tempUser->gender 		= filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
+			$tempUser->t_shirt_size = filter_input(INPUT_POST, 't_shirt_size', FILTER_SANITIZE_STRING);
 
 
 			try {
-				$user->save();
-				$data['success']['messages'] = $this->messages->add('101', 'Successfully Submited!');
+				$tempUser->save();
+				return $messages;
 			}  catch(Exception $e) {
 				if (stripos($e->getMessage(), 'users_email_unique') != false){
 					$messages->add('100', 'Email or user already exists. Are you sure you didn\'t register already?');
-					$data['errors']['messages'] = $messages;
-					return view('register')->with('data', $data);
+					return $messages;
 				}
 			}
 			
