@@ -15,6 +15,7 @@ class RegisterController extends BaseController {
 
 	private $userData = array();
 	private $userToken = null;
+	private $tempUser = null;
 	
 	public function showRegister()
 	{
@@ -27,13 +28,16 @@ class RegisterController extends BaseController {
 		if ($_POST) {
 			$messages = $this->register();
 
-			if ($messages->any())
+			if ($messages->any()) {
 				return view('register')->with("messages", $messages);	
-			
-			$this->userData = $_POST;
-			return view('payment')
-				->with("userData", $this->userData)
-				->with("userToken", $this->userToken);
+			} else {
+				$this->userData = $_POST;
+				$this->tempUser->userToken = substr($this->userToken, 0, 10);
+				$this->tempUser->save();
+				return view('payment')
+					->with("userData", $this->userData)
+					->with("userToken", $this->userToken);
+			}
 		} 
 
 		return view('register');	
@@ -65,6 +69,13 @@ class RegisterController extends BaseController {
 					"payerLastName" 	=> $result->transaction->paypal["payerLastName"],
 					]
 				];
+
+			$tempUser = TempUser::where("email", $result->transaction->paypal["payerEmail"]);
+			$tempUser->status = "Paid";
+			$tempUser->save();
+			$user = new User($tempUser);
+			$user->save();
+
 			Log::info(json_encode($details));
 			Log::info(serialize($result));
 		}
@@ -138,20 +149,20 @@ class RegisterController extends BaseController {
 
 
 			//insert
-			$tempUser = new TempUser;
-			$tempUser->email 		= $email;
-			$tempUser->nickname 	= ($_POST['nickname'])? filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_EMAIL): '';
-			$tempUser->f_name 		= filter_input(INPUT_POST, 'f_name', FILTER_SANITIZE_STRING);
-			$tempUser->l_name 		= filter_input(INPUT_POST, 'l_name', FILTER_SANITIZE_STRING);
-			$tempUser->dob 			= $dob;
-			$tempUser->belt 		= filter_input(INPUT_POST, 'belt', FILTER_SANITIZE_STRING);
-			$tempUser->weight 		= $weight;
-			$tempUser->gender 		= filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
-			$tempUser->t_shirt_size = filter_input(INPUT_POST, 't_shirt_size', FILTER_SANITIZE_STRING);
+			$this->tempUser = new TempUser;
+			$this->tempUser->email 		= $email;
+			$this->tempUser->nickname 	= ($_POST['nickname'])? filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_EMAIL): '';
+			$this->tempUser->f_name 		= filter_input(INPUT_POST, 'f_name', FILTER_SANITIZE_STRING);
+			$this->tempUser->l_name 		= filter_input(INPUT_POST, 'l_name', FILTER_SANITIZE_STRING);
+			$this->tempUser->dob 			= $dob;
+			$this->tempUser->belt 		= filter_input(INPUT_POST, 'belt', FILTER_SANITIZE_STRING);
+			$this->tempUser->weight 		= $weight;
+			$this->tempUser->gender 		= filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
+			$this->tempUser->t_shirt_size = filter_input(INPUT_POST, 't_shirt_size', FILTER_SANITIZE_STRING);
 
 
 			try {
-				$tempUser->save();
+				$this->tempUser->save();
 				return $messages;
 			}  catch(Exception $e) {
 				if (stripos($e->getMessage(), 'users_email_unique') != false){
