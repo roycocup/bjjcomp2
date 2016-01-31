@@ -19,11 +19,6 @@ class RegisterController extends BaseController {
 	
 	public function showRegister()
 	{
-		Braintree_Configuration::environment('sandbox');
-		Braintree_Configuration::merchantId('mhmz7d5qhkkrtxzb');
-		Braintree_Configuration::publicKey('vv339y9bx7q7mq2d');
-		Braintree_Configuration::privateKey('0222b4e4fb050299206253fa3058e366');
-		$this->userToken = Braintree_ClientToken::generate();
 
 		if ($_POST) {
 			$messages = $this->register();
@@ -32,11 +27,11 @@ class RegisterController extends BaseController {
 				return view('register')->with("messages", $messages);	
 			} else {
 				$this->userData = $_POST;
-				$this->tempUser->userToken = substr($this->userToken, 0, 10);
+				$this->tempUser->userToken = $this->makeUserToken($this->tempUser->email.time());
 				$this->tempUser->save();
 				return view('payment')
 					->with("userData", $this->userData)
-					->with("userToken", $this->userToken);
+					->with("userToken", $this->tempUser->userToken);
 			}
 		} 
 
@@ -44,47 +39,31 @@ class RegisterController extends BaseController {
 	}
 
 
+	private function makeUserToken($str){
+		return substr(md5($str), 0, 10);
+	}
+
+
 	public function paymentConfirm(){
-		Braintree_Configuration::environment('sandbox');
-		Braintree_Configuration::merchantId('mhmz7d5qhkkrtxzb');
-		Braintree_Configuration::publicKey('vv339y9bx7q7mq2d');
-		Braintree_Configuration::privateKey('0222b4e4fb050299206253fa3058e366');
-		Log::info("Payment coming in: " . json_encode($_REQUEST));
-		if ($_POST["payment_method_nonce"]){
-			$nonce = $_POST["payment_method_nonce"];
-			$result = Braintree_Transaction::sale([
-				'amount' => '20.00',
-				'paymentMethodNonce' => $nonce
-			]);
-			$details = [ 
-				$result->transaction->paypal["payerEmail"] => [
-					"id" 		=> $result->transaction->id,
-					"status" 	=> $result->transaction->status,
-					"amount" 	=> $result->transaction->amount,
-					"currency" 	=> $result->transaction->currencyIsoCode,
-					"date" 		=> $result->transaction->createdAt,
-					"paymentId" => $result->transaction->paypal["paymentId"],
-					"payerId" 	=> $result->transaction->paypal["payerId"],
-					"payerFirstName" 	=> $result->transaction->paypal["payerFirstName"],
-					"payerLastName" 	=> $result->transaction->paypal["payerLastName"],
-					]
-				];
+		
+		if (!empty($_REQUEST["token"])){
+			Log::info("Payment coming in: " . json_encode($_REQUEST));
+			$userToken = $_REQUEST["token"]; 
+			$tempUser = TempUser::where("usertoken", $userToken)->first();
+			if (!$tempUser){
+				Log::critical("User token: ".$_REQUEST["token"]." Unable to find user after paypal. Please check paypal for emails and confirm all his form.");
+			}else{
+				$tempUser->status = "Paid";
+				$tempUser->save();
 
-			// $tempUser = TempUser::where("email", $result->transaction->paypal["payerEmail"])->get();
-			// var_dump($tempUser, $result->transaction->paypal["payerEmail"]); die;
-			// $tempUser->status = "Paid";
-			// $tempUser->save();
-			// $user = new User($tempUser);
-			// $user->save();
+				$user = new User($tempUser);
+				$user->save();
 
-			echo "<pre>";
-			print_r($result); 
-			die;
-
-			Log::info(json_encode($details));
-			Log::info(serialize($result));
+				echo "<pre>";
+				print_r($tempUser->email); 
+				die;
+			}
 		}
-
 
 		return redirect("/thankyou");
 	}
@@ -157,12 +136,12 @@ class RegisterController extends BaseController {
 			$this->tempUser = new TempUser;
 			$this->tempUser->email 		= $email;
 			$this->tempUser->nickname 	= ($_POST['nickname'])? filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_EMAIL): '';
-			$this->tempUser->f_name 		= filter_input(INPUT_POST, 'f_name', FILTER_SANITIZE_STRING);
-			$this->tempUser->l_name 		= filter_input(INPUT_POST, 'l_name', FILTER_SANITIZE_STRING);
-			$this->tempUser->dob 			= $dob;
+			$this->tempUser->f_name 	= filter_input(INPUT_POST, 'f_name', FILTER_SANITIZE_STRING);
+			$this->tempUser->l_name 	= filter_input(INPUT_POST, 'l_name', FILTER_SANITIZE_STRING);
+			$this->tempUser->dob 		= $dob;
 			$this->tempUser->belt 		= filter_input(INPUT_POST, 'belt', FILTER_SANITIZE_STRING);
-			$this->tempUser->weight 		= $weight;
-			$this->tempUser->gender 		= filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
+			$this->tempUser->weight 	= $weight;
+			$this->tempUser->gender 	= filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
 			$this->tempUser->t_shirt_size = filter_input(INPUT_POST, 't_shirt_size', FILTER_SANITIZE_STRING);
 
 

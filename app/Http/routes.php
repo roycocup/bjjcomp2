@@ -35,7 +35,7 @@ Route::get('/brackets', function(){
 
 // Register and Payment
 Route::match(array('GET', 'POST'),'register', 'RegisterController@showRegister');
-Route::post('/paymentconfirm', 'RegisterController@paymentConfirm');
+Route::match(array('GET', 'POST'), '/paymentconfirm', 'RegisterController@paymentConfirm');
 Route::get('/thankyou', 'HomeController@thankyou');
 Route::get('/cancel', 'HomeController@showHome');
 Route::post('/savetemp', 'RegisterController@paymentConfirm');
