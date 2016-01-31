@@ -56,16 +56,34 @@ class RegisterController extends BaseController {
 				$tempUser->status = "Paid";
 				$tempUser->save();
 
-				$user = new User($tempUser);
-				$user->save();
-
-				echo "<pre>";
-				print_r($tempUser->email); 
-				die;
+				$user = $this->createNewUser($tempUser);
 			}
 		}
 
 		return redirect("/thankyou");
+	}
+
+
+	private function createNewUser($old_user){
+		if($user = User::where("email", $old_user->email)->first()){
+			Log::error("Creating new user for ".$old_user->email." when its already in the User table");
+			return $user;
+		}
+		$user = new User();
+		$user->email = $old_user->email;
+		$user->nickname = $old_user->nickname;
+		$user->f_name = $old_user->f_name;
+		$user->l_name = $old_user->l_name;
+		$user->dob = $old_user->dob;
+		$user->belt = $old_user->belt;
+		$user->weight = $old_user->weight;
+		$user->gender = $old_user->gender;
+		$user->t_shirt_size = $old_user->t_shirt_size;
+		$user->usertoken = $old_user->usertoken;
+		$user->payment_date = date_create()->format("Y/m/d H:i:s");
+		$user->status = $old_user->status;
+		$user->save();
+		return $user; 
 	}
 
 
@@ -143,6 +161,7 @@ class RegisterController extends BaseController {
 			$this->tempUser->weight 	= $weight;
 			$this->tempUser->gender 	= filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
 			$this->tempUser->t_shirt_size = filter_input(INPUT_POST, 't_shirt_size', FILTER_SANITIZE_STRING);
+			$this->tempUser->status = "Unpaid";
 
 
 			try {
