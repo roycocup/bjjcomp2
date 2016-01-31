@@ -32,7 +32,7 @@
 
 <?php if (env("APP_DEBUG") === false ): ?>
 
-	<h1>PRODUCTION!!!</h1>
+	<!-- PRODUCTION!!! -->
 	<div class="row">
 		<div class="col-md-offset-2 col-md-8">
 			<h2>Confirm your registration</h2>
@@ -53,10 +53,9 @@
 			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 				<p>Promotional price for registration previous <?=App\Helper::eventData("startDate")->format("l jS F Y");?> of £20</p>
 				<input type="hidden" name="cmd" value="_s-xclick">
-				<input type="hidden" name="hosted_button_id" value="CZG6KM37748C4">
 				<input type="hidden" name="cbt" value="Go back to LFF Cup Site">
 				<input type="hidden" name="return" value="<?=env("URL")?>/paymentconfirm?token=<?=$userToken?>">
-				<input name="notify_url" value="http://v2.lffcup.com/notify_url.php?user_id=13" type="hidden">
+				<input type="hidden" name="hosted_button_id" value="CZG6KM37748C4">
 				<input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
 				<img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
 			</form>
