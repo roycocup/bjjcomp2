@@ -72,7 +72,7 @@
 					<a href="http://londonfightfactory.com/"><img src="/img/manxinha_logo-branco.png" alt="" style="max-width:300px" ></a>
 				</div>
 				<div class="col-lg-3 col-md-offset-1">
-					<a href="http://www.tatamifightwear.com/"><img src="/img/tatami-logo.jpg" alt="" style="max-width:300px" ></a>
+					{{-- <a href="http://www.tatamifightwear.com/"><img src="/img/tatami-logo.jpg" alt="" style="max-width:300px" ></a> --}}
 				</div>
 				<div class="col-lg-3 col-md-offset-1">
 					<a href="http://www.checkmatbjj.com/"><img src="/img/checkmat-logo.jpg" alt="" ></a>
