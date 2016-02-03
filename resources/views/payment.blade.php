@@ -48,8 +48,10 @@
 				</ul>
 			</div>
 
+			<div class="img"><strong>Important!</strong><p>Dont forget to click the return button after you pay!</p><img src="/img/paypal-comeback.jpg" alt=""></div> <br>
+
 			<?php if ( new DateTime() < App\Helper::eventData("promoUntil")  ): ?>
-		
+			
 			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 				<p>Promotional price for registration before <?=App\Helper::eventData("startDate")->format("l jS F Y");?> of £20</p>
 				<input type="hidden" name="cmd" value="_s-xclick">
@@ -93,8 +95,9 @@
 				</ul>
 			</div>
 
+			<div class="img"><strong>Important!</strong><p>Dont forget to click the return button after you pay!</p><img src="/img/paypal-comeback.jpg" alt=""></div> <br>
+
 			<?php if ( new DateTime() < App\Helper::eventData("promoUntil")  ): ?>
-			
 			<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
 				<input type="hidden" name="cmd" value="_s-xclick">
 				<input type="hidden" name="cbt" value="Go back to LFF Cup Site">
