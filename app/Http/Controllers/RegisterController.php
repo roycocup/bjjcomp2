@@ -60,6 +60,8 @@ class RegisterController extends BaseController {
 			}
 		}
 
+		$this->sendEmail($user);
+
 		return redirect("/thankyou");
 	}
 
@@ -178,14 +180,14 @@ class RegisterController extends BaseController {
 	}
 
 
-	public function sendEmail($userEmail){
+	public function sendEmail($user){
 		 //send email confirmation
 		$body = "You have successfully registered for LFF BJJ Cup 3<br>";
 		$body .= "Name: {$user->f_name} {$user->l_name}<br>";
 		$body .= "Belt: {$user->belt}<br>";
 		$body .= "Weight: {$user->weight}<br>";
 		$body .= "<br>Good luck!<br>";
-		mail($userEmail, 'LFF BJJ Competition Confirmation', $body); 
+		mail($user->email, 'LFF BJJ Competition Confirmation', $body); 
 	}
 
 }

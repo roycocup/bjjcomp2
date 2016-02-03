@@ -51,7 +51,7 @@
 			<?php if ( new DateTime() < App\Helper::eventData("promoUntil")  ): ?>
 		
 			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-				<p>Promotional price for registration previous <?=App\Helper::eventData("startDate")->format("l jS F Y");?> of £20</p>
+				<p>Promotional price for registration before <?=App\Helper::eventData("startDate")->format("l jS F Y");?> of £20</p>
 				<input type="hidden" name="cmd" value="_s-xclick">
 				<input type="hidden" name="cbt" value="Go back to LFF Cup Site">
 				<input type="hidden" name="return" value="<?=env("URL")?>/paymentconfirm?token=<?=$userToken?>">
