@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'rodderscode@gmail.com', 'name' => 'LFF Cup Admin'), 'encryption' => 'tls'],
 
     /*
     |--------------------------------------------------------------------------
