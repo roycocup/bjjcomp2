@@ -47,15 +47,17 @@ body {
 }
 
 @media (max-width: 768px) {
-	min-height: 15em;
-	width: 100%;
-	.bg1{ 
-		background-image: url("../img/graduation.jpg"); 
-		background-position: center center;
-		background-repeat: no-repeat;
-		background-attachment: fixed;
-		@include background-size(cover);
-	}	
+	#header { 
+		min-height: 15em;
+		width: 100%;
+		&.bg1{ 
+			background-image: url("../img/graduation.jpg"); 
+			background-position: -400px -150px;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			@include background-size(cover);
+		}
+	}
 }
 
 // Broken down belt colours
