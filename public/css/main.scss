@@ -48,11 +48,10 @@ body {
 
 @media (max-width: 768px) {
 	#header { 
-		min-height: 15em;
 		width: 100%;
 		&.bg1{ 
 			background-image: url("../img/graduation.jpg"); 
-			background-position: -400px -150px;
+			background-position: center -100px;
 			background-repeat: no-repeat;
 			background-attachment: fixed;
 			@include background-size(cover);
