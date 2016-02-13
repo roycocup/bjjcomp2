@@ -73,12 +73,6 @@
 		<label for="dob">Date of Birth</label>
 		<input type="text" name="dob" class="form-control" id="dob" placeholder="dd/mm/YYYY" required>
 		<p class="help-block"></p>
-		<label for="gender">Gender</label>
-		<select class="form-control" name='gender' id="gender" required>
-			<option value="male">Male</option>
-			<option value="female">Female</option>
-		</select>
-		<p class="help-block"></p>
 		<label for="belt">Belt Colour</label>
 		<select class="form-control" name='belt'>
 			<option value="white">White</option>
@@ -86,6 +80,12 @@
 			<option value="purple">Purple</option>
 			<option value="brown">Brown</option>
 			<option value="black">Black</option>
+		</select>
+		<p class="help-block"></p>
+		<label for="gender">Gender</label>
+		<select class="form-control" name='gender' id="gender" required>
+			<option value="male">Male</option>
+			<option value="female">Female</option>
 		</select>
 		<p class="help-block"></p>
 		<div class="men-weights">

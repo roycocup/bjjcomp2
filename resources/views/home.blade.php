@@ -93,7 +93,7 @@
 	<div class="col-md-4">
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<h4>Only the first 150 get a T-shirt!</h4>
+				<h4>Only the first few get a T-shirt!</h4>
 				<p>Hurry up and register and grab your free T-shirt!</p>
 			</div>
 		</div>
@@ -114,7 +114,7 @@
 		<div class="panel panel-info">
 			<div class="panel-heading">
 				<h4>Brackets</h4>
-				<p>The brackets will be done manually by Luiz so dont worry about who you are fighting until the day.</p>
+				<p>The brackets will be done manually by Luiz so you will only know who you are fighting on the day.</p>
 			</div>
 		</div>
 	</div>
