@@ -138,7 +138,7 @@ class RegisterController extends BaseController {
 			$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 			$dob = filter_input(INPUT_POST, 'dob', FILTER_SANITIZE_STRING);
 			$dob = str_ireplace('/', '-', $dob);
-			$dob = date('Y-m-d', strtotime($dob));
+			//$dob = date('Y-m-d', strtotime($dob));
 
 			if (strtotime($dob) > strtotime('15 years ago')){
 				$messages->add('too young', 'Your date of birth is '.$dob.'. Are you sure you are less than 15 years old ? ');
