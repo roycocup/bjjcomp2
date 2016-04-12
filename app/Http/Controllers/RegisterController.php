@@ -21,6 +21,7 @@ class RegisterController extends BaseController {
 	{
 
 		if ($_POST) {
+			Log::info("Attempted Registration with: ", $_POST);
 			$messages = $this->register();
 
 			if ($messages->any()) {

@@ -15,8 +15,8 @@ class User extends Model {
     protected $table = 'users';
 
     public $age_categories = array(
-            'child' => array(1, 17),
-            'adult' => array (18, 100),
+            // 'child' => array(1, 16),
+            'adult' => array (0, 100),
             // 'master1' => array (30, 35),
             // 'master2' => array (36, 40),
             // 'master3' => array (41, 46),
