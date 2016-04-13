@@ -129,7 +129,7 @@
 	</div> --}}
 	<div class="col-lg-12 well">
 		<h4>Info</h4>
-		<p>No info yet.</p>
+		<p>At this point we have {{(int)$num_users}} fighters ready to roll! Please check and send us an email if you can't see your name on the broken down list.</p>
 	</div>
 </div>          
 
