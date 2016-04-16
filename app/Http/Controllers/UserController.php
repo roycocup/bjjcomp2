@@ -10,41 +10,7 @@ class UserController extends BaseController {
 	public function showBrokenList()
 	{
 		$user = new User();
-		
-		$genders = array('male', 'female');
-		$age_categories = $user->age_categories;
-		$belts = $user->belt_colours;
-		$menWeights = Helper::getMenWeights();
-		$womenWeights = Helper::getWomenWeights();
-
-		//gender / age-group / belt / weight
-		foreach ($genders as $gender){
-			foreach ($belts as $belt) {
-				foreach ($age_categories as $age=>$values) {
-					if ($gender == 'male'){
-						$weights = $menWeights;	
-					}else{
-						$weights = $womenWeights;
-					}
-
-					foreach($weights as $weight=>$textual){
-						$data[$gender][$age][$belt][$weight] = $user->getFightersFor($gender, $age, $belt, $weight);
-					}
-					
-				}
-			}
-			
-		}
-		
-		
-
-		$data['genders'] 		= $genders;
-		$data['age_categories'] = $age_categories;
-		$data['belts'] 			= $belts;
-		$data['menWeights'] 	= $menWeights;
-		$data['womenWeights'] 	= $womenWeights;
-
-
+		$data = $user->getAllFightersData();
 		
 		return view('userbrokenlist')->with('data', $data);
 	}

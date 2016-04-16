@@ -44,6 +44,42 @@ class User extends Model {
         return $results;
     }
 
+
+    public function getAllFightersData(){
+        $genders = array('male', 'female');
+        $age_categories = $this->age_categories;
+        $belts = $this->belt_colours;
+        $menWeights = Helper::getMenWeights();
+        $womenWeights = Helper::getWomenWeights();
+
+        //gender / age-group / belt / weight
+        foreach ($genders as $gender){
+            foreach ($belts as $belt) {
+                foreach ($age_categories as $age=>$values) {
+                    if ($gender == 'male'){
+                        $weights = $menWeights; 
+                    }else{
+                        $weights = $womenWeights;
+                    }
+
+                    foreach($weights as $weight=>$textual){
+                        $data[$gender][$age][$belt][$weight] = $this->getFightersFor($gender, $age, $belt, $weight);
+                    }
+                    
+                }
+            }
+            
+        }
+
+        $data['genders']        = $genders;
+        $data['age_categories'] = $age_categories;
+        $data['belts']          = $belts;
+        $data['menWeights']     = $menWeights;
+        $data['womenWeights']   = $womenWeights;
+
+        return $data;
+    }
+
     
 
 }

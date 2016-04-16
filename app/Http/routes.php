@@ -27,9 +27,7 @@ Route::get('/contacts', function(){
 	return View::make('contacts');
 });
 
-Route::get('/brackets', function(){
-	return View::make('brackets');
-});
+Route::get('/brackets', 'BracketsController@index');
 
 // Route::get('/calendarDownload', 'HomeController@getDownload');
 
