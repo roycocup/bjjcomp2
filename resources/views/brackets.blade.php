@@ -29,6 +29,7 @@
 
 <div class="row">
 
+    <!-- sidebar -->
 	<div class="col-md-3">
 		<?php $now = new DateTime(); ?>
     
@@ -81,10 +82,60 @@
         @endforeach
 	</div>
 
-
+    <!-- main -->
     <div class="col-md-9">
-        <h2>Nome da Luta</h2>
-        <h3>Numero de lutadores na categoria </h3>
+        <h2>FightName</h2>
+        <div class="well">
+            Number of fighters in category: 10
+        </div>
+        <div class="well">
+            <form action="#">
+                Gender
+                <select name="gender" id="gender">
+                    <option value="">---</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                Age
+                <select name="age" >
+                    <option value="adult">adult</option>
+                </select>
+                Belt
+                <select name="belt">
+                    <option value="white">White</option>
+                    <option value="blue">Blue</option>
+                    <option value="purple">Purple</option>
+                    <option value="brown">Brown</option>
+                    <option value="black">Black</option>
+                </select>
+                <div id="men-weight" style="display: none">
+                    Weight (Men)
+                    <select name="men-weight">
+                        <option value="rooster">Rooster (<57.5Kg)</option>
+                        <option value="s_feather">Super Feather (<64Kg)</option>
+                        <option value="feather">Feather (<70Kg)</option>
+                        <option value="light">Light (<76Kg)</option>
+                        <option value="middle">Middle (<82.3Kg)</option>
+                        <option value="m_heavy">Medium Heavy (<88.3Kg)</option>
+                        <option value="heavy">Heavy (<94.3Kg)</option>
+                        <option value="s_heavy">Super Heavy (<100.5Kg)</option>
+                        <option value="u_heavy">Ultra Heavy (>100.5Kg)</option>
+                    </select>
+                </div>
+                <div id="women-weight" style="display: none">
+                    Weight (Women)
+                    <select name='women-weight' style="display: hidden">
+                        <option value="s_feather">Super Feather (<53.5Kg)</option>
+                        <option value="feather">Feather (<58.5Kg)</option>
+                        <option value="light">Light (<64Kg)</option>
+                        <option value="middle">Middle (<69Kg)</option>
+                        <option value="m_heavy">Medium Heavy (<74Kg)</option>
+                        <option value="heavy">Heavy (>74Kg)</option>
+                    </select>
+                </div>
+                <input type="button" id="filter-btn" class="btn btn-primary" value="Get Bracket">
+            </form>
+        </div>
         <table border="1">
             <tr>
                 <td>lutador 1</td>
@@ -102,4 +153,32 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function(){
+        $('#filter-btn').click(function(event) {
+            $.post('competition/getFight', $('form').serialize(), function(response){
+                var selected = $(this).val();
+                console.log(selected); 
+            });
+        });
+
+        $('#gender').change(function(event) {
+            var selected = $(this).val(); 
+            if (selected == 'male'){
+                $('#men-weight').show();
+                $('#women-weight').hide();
+            }else{
+                $('#men-weight').hide();
+                $('#women-weight').show();
+            }
+        });
+        
+
+    });
+
+</script>
+
+
 @stop
+
+

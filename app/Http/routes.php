@@ -29,6 +29,8 @@ Route::get('/contacts', function(){
 
 Route::get('/brackets', 'BracketsController@index');
 
+Route::post('/competition/getFight', 'CompetitionController@getFight');
+
 // Route::get('/calendarDownload', 'HomeController@getDownload');
 
 // Register and Payment
