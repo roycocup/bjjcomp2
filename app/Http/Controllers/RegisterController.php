@@ -141,8 +141,8 @@ class RegisterController extends BaseController {
 			$dob = str_ireplace('/', '-', $dob);
 			//$dob = date('Y-m-d', strtotime($dob));
 
-			if (strtotime($dob) > strtotime('15 years ago')){
-				$messages->add('too young', 'Your date of birth is '.$dob.'. Are you sure you are less than 15 years old ? ');
+			if (strtotime($dob) > strtotime('10 years ago')){
+				$messages->add('too young', 'Your date of birth is '.$dob.'. Are you sure you are 10 years old ? ');
 				return $messages;
 			}
 
