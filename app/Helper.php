@@ -9,7 +9,7 @@ class Helper {
 			'startDate' 		=> date_create("2016-05-08"),
 			'title' 			=> "LFF BJJ Cup 3",
 			'alterTitle' 		=> "LFF BJJ Competition 3",
-			'registerCutoff' 	=> date_create("2016-05-05"),
+			'registerCutoff' 	=> date_create("2016-05-06 00:00:00"),
 			'promoUntil' 		=> date_create("2016-04-12"),
 		];
 		return $eventData[$name];
