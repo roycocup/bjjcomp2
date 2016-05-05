@@ -105,7 +105,7 @@
 				<h4>Registration</h4>
 				<p>Registration will be £20 until <?=App\Helper::eventData("promoUntil")->format("l jS F")?></p>
 				<p>After that the price will be £25.</p>
-				<p>Registrations close on <?=App\Helper::eventData("registerCutoff")->format("l jS F Y")?></p>
+				<p>Registrations close on <?=App\Helper::eventData("registerCutoff")->modify('-1 day')->format("l jS F Y")?></p>
 			</div>
 		</div>
 	</div>
