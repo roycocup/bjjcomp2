@@ -22,7 +22,7 @@
 
 <?php 
 	$now = new DateTime();
-	if( $now >= App\Helper::eventData("registerCutoff") ):
+	if( $now >= App\Helper::eventData("registerCutoff") &&  Config::get('app.debug') != true ):
 ?>
 
 <div class="form-group col-md-12">
