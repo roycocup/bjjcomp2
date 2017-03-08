@@ -9,7 +9,9 @@ use Log;
 use Braintree_Configuration;
 use Braintree_ClientToken;
 use Braintree_Transaction;
-use Validator; 
+use Monolog\Logger;
+use Validator;
+use PaypalIPN;
 
 class RegisterController extends BaseController {
 
@@ -190,5 +192,23 @@ class RegisterController extends BaseController {
 		$body .= "<br>Good luck!<br>";
 		mail($user->email, 'LFF BJJ Competition Confirmation', $body); 
 	}
+
+
+	public function ipn()
+    {
+        $ipn = new PaypalIPN();
+        $ipn->useSandbox();
+
+        $verified = $ipn->verifyIPN();
+        if ($verified) {
+            Log::info("IPN from Paypal: ",
+                [
+                    'email' => $_POST["payer_email"],
+                    'name' => $_POST["first_name"]." ".$_POST["last_name"],
+                    'payer_id' => $_POST["payer_id"],
+                ]
+            );
+        }
+    }
 
 }
