@@ -11,7 +11,7 @@ use Braintree_ClientToken;
 use Braintree_Transaction;
 use Monolog\Logger;
 use Validator;
-use PaypalIPN;
+use App\PaypalIPN\PaypalIPN;
 
 class RegisterController extends BaseController {
 
