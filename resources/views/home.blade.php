@@ -50,7 +50,7 @@
 						<i class="fa fa-thumbs-o-up fa-5x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<h4>Welcome to the third edition of the London Fight Factory BJJ Cup</h4>
+						<h4>Welcome to the fourth edition of the London Fight Factory BJJ Cup</h4>
 					</div>
 					{{-- <div class="col-xs-9 text-right">
 						<h4>{{(int)$num_users}}</h4>
