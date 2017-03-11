@@ -71,7 +71,7 @@
 
 	<div class="form-group col-md-6">
 		<label for="dob">Date of Birth</label>
-		<input type="text" name="dob" class="form-control" id="dob" placeholder="YYYY/mm/dd" required>
+		<input type="text" name="dob" class="form-control" id="dob" placeholder="dd/mm/yyyy" required>
 		<p class="help-block"></p>
 		<label for="belt">Belt Colour</label>
 		<select class="form-control" name='belt'>
@@ -132,8 +132,8 @@
 		$('#dob').datepicker({
 			changeMonth: true,
 			changeYear: true,
-			yearRange:'-50:-3',
-			dateFormat:'yy/mm/dd',
+			yearRange:'-60:-10',
+			dateFormat:'dd/mm/yy',
 		});
 
 		$('.women-weights').hide();

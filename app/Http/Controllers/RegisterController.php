@@ -56,6 +56,7 @@ class RegisterController extends BaseController {
 			if (!$tempUser){
 				Log::critical("User token: ".$_REQUEST["token"]." Unable to find user after paypal. Please check paypal for emails and confirm all his form.");
 			}else{
+                $tempUser->payment_date = (new \Datetime())->format('Y-m-d H:i:s');
 				$tempUser->status = "Paid";
 				$tempUser->save();
 
@@ -75,18 +76,18 @@ class RegisterController extends BaseController {
 			return $user;
 		}
 		$user = new User();
-		$user->email = $old_user->email;
-		$user->nickname = $old_user->nickname;
-		$user->f_name = $old_user->f_name;
-		$user->l_name = $old_user->l_name;
-		$user->dob = $old_user->dob;
-		$user->belt = $old_user->belt;
-		$user->weight = $old_user->weight;
-		$user->gender = $old_user->gender;
+		$user->email        = $old_user->email;
+		$user->nickname     = $old_user->nickname;
+		$user->f_name       = $old_user->f_name;
+		$user->l_name       = $old_user->l_name;
+		$user->dob          = $old_user->dob;
+		$user->belt         = $old_user->belt;
+		$user->weight       = $old_user->weight;
+		$user->gender       = $old_user->gender;
 		$user->t_shirt_size = $old_user->t_shirt_size;
-		$user->usertoken = $old_user->usertoken;
+		$user->usertoken    = $old_user->usertoken;
 		$user->payment_date = date_create()->format("Y/m/d H:i:s");
-		$user->status = $old_user->status;
+		$user->status       = $old_user->status;
 		$user->save();
 		return $user; 
 	}
@@ -141,10 +142,10 @@ class RegisterController extends BaseController {
 			$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 			$dob = filter_input(INPUT_POST, 'dob', FILTER_SANITIZE_STRING);
 			$dob = str_ireplace('/', '-', $dob);
-			//$dob = date('Y-m-d', strtotime($dob));
+            $dob = new \DateTime($dob);
 
-			if (strtotime($dob) > strtotime('10 years ago')){
-				$messages->add('too young', 'Your date of birth is '.$dob.'. Are you sure you are 10 years old ? ');
+			if (strtotime($dob->format('d-m-Y')) > strtotime('15 years ago')){
+				$messages->add('too young', 'Your date of birth is '.$dob->format('d-m-Y').'. Are you sure you less than 15 years old? ');
 				return $messages;
 			}
 
@@ -161,12 +162,12 @@ class RegisterController extends BaseController {
 			$this->tempUser->nickname 	= ($_POST['nickname'])? filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_EMAIL): '';
 			$this->tempUser->f_name 	= filter_input(INPUT_POST, 'f_name', FILTER_SANITIZE_STRING);
 			$this->tempUser->l_name 	= filter_input(INPUT_POST, 'l_name', FILTER_SANITIZE_STRING);
-			$this->tempUser->dob 		= $dob;
+			$this->tempUser->dob 		= $dob->format('Y-m-d');
 			$this->tempUser->belt 		= filter_input(INPUT_POST, 'belt', FILTER_SANITIZE_STRING);
 			$this->tempUser->weight 	= $weight;
 			$this->tempUser->gender 	= filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
 			$this->tempUser->t_shirt_size = filter_input(INPUT_POST, 't_shirt_size', FILTER_SANITIZE_STRING);
-			$this->tempUser->status = "Unpaid";
+			$this->tempUser->status     = "Unpaid";
 
 
 			try {
