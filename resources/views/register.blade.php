@@ -71,7 +71,7 @@
 
 	<div class="form-group col-md-6">
 		<label for="dob">Date of Birth</label>
-		<input type="text" name="dob" class="form-control" id="dob" placeholder="dd/mm/yyyy" required>
+		<input type="text" name="dob" class="form-control" id="dob" placeholder="YYYY/mm/dd" required>
 		<p class="help-block"></p>
 		<label for="belt">Belt Colour</label>
 		<select class="form-control" name='belt'>
@@ -133,7 +133,7 @@
 			changeMonth: true,
 			changeYear: true,
 			yearRange:'-60:-10',
-			dateFormat:'dd/mm/yy',
+			dateFormat:'yy/mm/dd',
 		});
 
 		$('.women-weights').hide();
