@@ -122,7 +122,7 @@ class RegisterController extends BaseController {
 					'email' 		=> 'email',
 					'first name' 	=> 'required',
 					'last name' 	=> 'required',
-					'date of birth' => 'required|date',
+					'date of birth' => 'required|date_format:Y/m/d',
 					'gender' 		=> 'required',
 					'belt' 			=> 'required',
 					'weight' 		=> 'required',
