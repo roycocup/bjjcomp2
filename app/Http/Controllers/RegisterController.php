@@ -61,11 +61,11 @@ class RegisterController extends BaseController {
 				$tempUser->save();
 
 				$user = $this->createNewUser($tempUser);
+
+                $this->sendEmail($user);
 			}
 		}
-
-		$this->sendEmail($user);
-
+        
 		return redirect("/thankyou");
 	}
 
