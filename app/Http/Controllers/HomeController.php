@@ -32,7 +32,7 @@ class HomeController extends BaseController
 	}
 
 	public function thankyou(){
-		$this->messages->add("thank you", "Thank you for registering.");
+		$this->messages->add("thank you", "Thank you. Your registration is complete. <br> A payment confirmation should be emailed to you by Paypal.");
 		$this->data['success']['messages'] = $this->messages;
 		return view('home')->with('data', $this->data);
 	}
