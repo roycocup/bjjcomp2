@@ -212,11 +212,16 @@ class RegisterController extends BaseController {
 
             $email = $_POST["payer_email"];
             $name = $_POST["first_name"]." ".$_POST["last_name"];
+
+            $token = (!empty($_POST["custom"]))? $_POST["custom"] : null;
+
+
             Log::info("IPN from Paypal: ",
                 [
                     'email' => $email,
                     'name' => $name,
                     'payer_id' => $_POST["payer_id"],
+                    'token' => $token,
                 ]
             );
 
