@@ -219,7 +219,7 @@ class RegisterController extends BaseController {
                     'payer_id' => $_POST["payer_id"],
                 ]
             );
-            
+
 
             if (TempUser::where("email", $email)->count() == 1)
             {
