@@ -220,11 +220,22 @@ class RegisterController extends BaseController {
                 ]
             );
 
-            $tempUser = TempUser::where("email", $email)->orderBy('created_at', 'desc')->first();
+            // has paid already?
+            if (TempUser::where("email", $email)->andWhere('status', 'Paid')->count())
+            {
+                Log("$name has already paid it seems");
+                die;
+            }
+
+
+            $tempUser = TempUser::where("email", $email)
+                ->orderBy('created_at', 'desc')
+                ->first();
 
             if (!$tempUser)
             {
                 Log::info("Unable to find email ". $email . " for ". $name. ". Not registering. Please check manually.");
+                die;
             }
 
             if ($tempUser->status != "Paid")
