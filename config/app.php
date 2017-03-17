@@ -2,6 +2,9 @@
 
 return [
 
+    // custom maintenance var
+    'maintenance' => env('APP_MAINTENANCE', false),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

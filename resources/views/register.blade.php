@@ -28,6 +28,12 @@
 <div class="form-group col-md-12">
 	<h2>Registrations are now closed...</h2>
 </div>
+
+<?php elseif ( Config::get('app.maintenance') == true ): ?>
+
+<div class="form-group col-md-12">
+	<h2>Registrations are temporarily closed. Please check back in a couple of hours.</h2>
+</div>
 	
 <?php else: ?>
 
