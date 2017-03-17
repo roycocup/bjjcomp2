@@ -55,6 +55,7 @@ class RegisterController extends BaseController {
             if ($userToken == "xxxxx")
             {
                 Log::info("An IPN message is coming in with ". json_encode($_REQUEST));
+                $this->ipn();
                 die;
             }
 
