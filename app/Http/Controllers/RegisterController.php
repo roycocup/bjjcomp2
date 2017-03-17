@@ -54,7 +54,7 @@ class RegisterController extends BaseController {
             // this was set in the button as return url and seems to just come in non stop in repeat mode....
             if ($userToken == "xxxxx")
             {
-                Log::info("A xxxx token coming in");
+                Log::info("An IPN message is coming in with ". json_encode($_REQUEST));
                 die;
             }
 
@@ -206,7 +206,6 @@ class RegisterController extends BaseController {
 	public function ipn()
     {
         $ipn = new PaypalIPN();
-        //$ipn->useSandbox();
 
         $verified = $ipn->verifyIPN();
         if ($verified) {

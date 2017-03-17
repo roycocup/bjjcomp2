@@ -95,7 +95,7 @@
 				</ul>
 			</div>
 
-			<div class="img"><strong>Important!</strong><p>Dont forget to click the return button after you pay!</p><img src="/img/paypal-comeback.jpg" alt=""></div> <br>
+			<div class="img"><strong>Important!</strong><p>Dont forget to click the return button to RETURN TO MERCHANT after you pay!</p><img src="/img/paypal-comeback.jpg" alt=""></div> <br>
 
 			<?php if ( new DateTime() < App\Helper::eventData("promoUntil")  ): ?>
 			<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
