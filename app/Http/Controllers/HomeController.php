@@ -32,6 +32,10 @@ class HomeController extends BaseController
 	}
 
 	public function thankyou(){
+        if (!empty($_GET))
+        {
+            Log::info("Recording the thank you data. ". json_encode($_GET));
+        }
 		$this->messages->add("thank you", "Thank you. Your registration is complete. <br> A payment confirmation should be emailed to you by Paypal.");
 		$this->data['success']['messages'] = $this->messages;
 		return view('home')->with('data', $this->data);
