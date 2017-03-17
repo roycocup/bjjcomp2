@@ -222,6 +222,11 @@ class RegisterController extends BaseController {
 
             $tempUser = TempUser::where("email", $email)->orderBy('created_at', 'desc')->first();
 
+            if (!$tempUser)
+            {
+                Log::info("Unable to find email ". $email . " for ". $name. ". Not registering. Please check manually.");
+            }
+
             if ($tempUser->status != "Paid")
             {
                 Log::info("IPN is validating payment for: ".$name." - ".$email);
