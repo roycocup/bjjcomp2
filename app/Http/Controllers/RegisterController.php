@@ -220,24 +220,22 @@ class RegisterController extends BaseController {
                 ]
             );
 
+            $tempUser = TempUser::where("email", $email)->orderBy('created_at', 'desc')->first();
 
-            if (TempUser::where("email", $email)->count() == 1)
+            if ($tempUser->status != "Paid")
             {
-                $tempUser = TempUser::where("email", $email)->first();
-                if ($tempUser->status != "Paid")
-                {
-                    Log::info("IPN is validating payment for: ".$name." - ".$email);
+                Log::info("IPN is validating payment for: ".$name." - ".$email);
 
-                    $tempUser->payment_date = (new \Datetime())->format('Y-m-d H:i:s');
-                    $tempUser->status = "Paid";
-                    $tempUser->save();
+                $tempUser->payment_date = (new \Datetime())->format('Y-m-d H:i:s');
+                $tempUser->status = "Paid";
+                $tempUser->save();
 
-                    $user = $this->createNewUser($tempUser);
+                $user = $this->createNewUser($tempUser);
 
-                    //$this->sendEmail($user);
-                }
-
+                //$this->sendEmail($user);
             }
+
+
         }
     }
 
