@@ -223,7 +223,7 @@ class RegisterController extends BaseController {
             // has paid already in any of the matches?
             if (TempUser::where("email", $email)->where('status', 'Paid')->count())
             {
-                Log("$name has already paid it seems");
+                Log::info("$name  has already paid it seems");
                 die;
             }
 
