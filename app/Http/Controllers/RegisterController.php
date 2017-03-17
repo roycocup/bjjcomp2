@@ -199,7 +199,7 @@ class RegisterController extends BaseController {
 	public function ipn()
     {
         $ipn = new PaypalIPN();
-        $ipn->useSandbox();
+        //$ipn->useSandbox();
 
         $verified = $ipn->verifyIPN();
         if ($verified) {
