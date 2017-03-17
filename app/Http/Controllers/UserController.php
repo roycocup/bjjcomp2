@@ -21,7 +21,7 @@ class UserController extends BaseController {
 	{
 		$user = new User();
 
-		$all = $user->orderBy('created_at')->get()->toArray();
+		$all = $user->orderBy('created_at', 'desc')->get()->toArray();
 		
 		$age_categories = $user->age_categories;
 		$belts = $user->belt_colours;
