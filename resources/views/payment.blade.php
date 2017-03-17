@@ -59,6 +59,8 @@
 				<input type="hidden" name="cmd" value="_s-xclick">
 				<input type="hidden" name="cbt" value="Go back to LFF Cup Site">
 				<input type="hidden" name="return" value="<?=env("URL")?>/paymentconfirm?token=<?=$userToken?>">
+				<input type="hidden" name="custom" value="<?=$userToken?>">
+				<input type="hidden" name="invoice" value="<?=$userToken?>">
 				<input type="hidden" name="hosted_button_id" value="CZG6KM37748C4">
 				<input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
 				<img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
@@ -70,6 +72,8 @@
 				<input type="hidden" name="cmd" value="_s-xclick">
 				<input type="hidden" name="cbt" value="Go back to LFF Cup Site">
 				<input type="hidden" name="return" value="<?=env("URL")?>/paymentconfirm?token=<?=$userToken?>">
+				<input type="hidden" name="custom" value="<?=$userToken?>">
+				<input type="hidden" name="invoice" value="<?=$userToken?>">
 				<input type="hidden" name="hosted_button_id" value="PN5DMW5FL5YCG">
 				<input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
 				<img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
@@ -106,6 +110,8 @@
 				<input type="hidden" name="cmd" value="_s-xclick">
 				<input type="hidden" name="cbt" value="Go back to LFF Cup Site">
 				<input type="hidden" name="return" value="<?=env("URL")?>/paymentconfirm?token=<?=$userToken?>">
+				<input type="hidden" name="custom" value="<?=$userToken?>">
+				<input type="hidden" name="invoice" value="<?=$userToken?>">
 				<input type="hidden" name="hosted_button_id" value="2L4H4L2GFT2XA">
 				<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 				<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
@@ -117,6 +123,8 @@
 				<input type="hidden" name="cmd" value="_s-xclick">
 				<input type="hidden" name="cbt" value="Go back to LFF Cup Site">
 				<input type="hidden" name="return" value="<?=env("URL")?>/paymentconfirm?token=<?=$userToken?>">
+				<input type="hidden" name="custom" value="<?=$userToken?>">
+				<input type="hidden" name="invoice" value="<?=$userToken?>">
 				<input type="hidden" name="hosted_button_id" value="D4T5UBNGQQFRG">
 				<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 				<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
