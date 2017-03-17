@@ -50,8 +50,11 @@ class RegisterController extends BaseController {
 	public function paymentConfirm(){
 		
 		if (!empty($_REQUEST["token"])){
-			Log::info("Payment coming in: " . json_encode($_REQUEST));
-			$userToken = $_REQUEST["token"]; 
+            $userToken = $_REQUEST["token"];
+            // this was set in the button as return url and seems to just come in non stop in repeat mode....
+            if ($userToken == "xxxxx") return false;
+            
+            Log::info("Payment coming in: " . json_encode($_REQUEST));
 			$tempUser = TempUser::where("usertoken", $userToken)->first();
 			if (!$tempUser){
 				Log::critical("User token: ".$_REQUEST["token"]." Unable to find user after paypal. Please check paypal for emails and confirm all his form.");
