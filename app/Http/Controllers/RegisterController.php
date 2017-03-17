@@ -54,7 +54,6 @@ class RegisterController extends BaseController {
             // this was set in the button as return url and seems to just come in non stop in repeat mode....
             if ($userToken == "xxxxx")
             {
-                Log::info("An IPN message is coming in with ". json_encode($_REQUEST));
                 $this->ipn();
                 die;
             }
