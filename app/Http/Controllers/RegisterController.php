@@ -58,7 +58,7 @@ class RegisterController extends BaseController {
                 die;
             }
 
-            Log::info("Payment coming in: " . json_encode($_REQUEST));
+            Log::info("Payment coming in via 'return to merchant' button: " . json_encode($_REQUEST));
 			$tempUser = TempUser::where("usertoken", $userToken)->first();
 			if (!$tempUser){
 				Log::critical("User token: ".$_REQUEST["token"]." Unable to find user after paypal. Please check paypal for emails and confirm all his form.");
