@@ -209,13 +209,35 @@ class RegisterController extends BaseController {
 
         $verified = $ipn->verifyIPN();
         if ($verified) {
+
+            $email = $_POST["payer_email"];
+            $name = $_POST["first_name"]." ".$_POST["last_name"];
             Log::info("IPN from Paypal: ",
                 [
-                    'email' => $_POST["payer_email"],
-                    'name' => $_POST["first_name"]." ".$_POST["last_name"],
+                    'email' => $email,
+                    'name' => $name,
                     'payer_id' => $_POST["payer_id"],
                 ]
             );
+            
+
+            if (TempUser::where("email", $email)->count() == 1)
+            {
+                $tempUser = TempUser::where("email", $email)->first();
+                if ($tempUser->status != "Paid")
+                {
+                    Log::info("IPN is validating payment for: ".$name." - ".$email);
+
+                    $tempUser->payment_date = (new \Datetime())->format('Y-m-d H:i:s');
+                    $tempUser->status = "Paid";
+                    $tempUser->save();
+
+                    $user = $this->createNewUser($tempUser);
+
+                    //$this->sendEmail($user);
+                }
+
+            }
         }
     }
 
