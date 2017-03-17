@@ -63,13 +63,7 @@ class RegisterController extends BaseController {
 			if (!$tempUser){
 				Log::critical("User token: ".$_REQUEST["token"]." Unable to find user after paypal. Please check paypal for emails and confirm all his form.");
 			}else{
-                $tempUser->payment_date = (new \Datetime())->format('Y-m-d H:i:s');
-				$tempUser->status = "Paid";
-				$tempUser->save();
-
-				$user = $this->createNewUser($tempUser);
-
-                $this->sendEmail($user);
+                $this->finalisingUser($tempUser);
 			}
 		}
         
@@ -212,9 +206,7 @@ class RegisterController extends BaseController {
 
             $email = $_POST["payer_email"];
             $name = $_POST["first_name"]." ".$_POST["last_name"];
-
             $token = (!empty($_POST["custom"]))? $_POST["custom"] : null;
-
 
             Log::info("IPN from Paypal: ",
                 [
@@ -225,17 +217,14 @@ class RegisterController extends BaseController {
                 ]
             );
 
-            // has paid already in any of the matches?
-            if (TempUser::where("email", $email)->where('status', 'Paid')->count())
-            {
-                Log::info("$name  has already paid it seems");
-                die;
+            $tempUser = null;
+            if ($token) {
+                $tempUser = TempUser::where('usertoken', $token)->first();
+            } else {
+                $tempUser = TempUser::where("email", $email)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
             }
-
-
-            $tempUser = TempUser::where("email", $email)
-                ->orderBy('created_at', 'desc')
-                ->first();
 
             if (!$tempUser)
             {
@@ -243,21 +232,34 @@ class RegisterController extends BaseController {
                 die;
             }
 
-            if ($tempUser->status != "Paid")
+
+            // has paid already in any of the matches?
+            if (TempUser::where('email', $email)->where('status', 'Paid')->count())
             {
-                Log::info("IPN is validating payment for: ".$name." - ".$email);
-
-                $tempUser->payment_date = (new \Datetime())->format('Y-m-d H:i:s');
-                $tempUser->status = "Paid";
-                $tempUser->save();
-
-                $user = $this->createNewUser($tempUser);
-
-                //$this->sendEmail($user);
+                Log::info("$name  has already paid it seems");
+                die;
             }
 
 
+            if ($tempUser->status != "Paid")
+            {
+                Log::info("IPN is finalising payment for: ".$name." - ".$email);
+
+                $this->finalisingUser($tempUser);
+            }
         }
+
+    }
+
+    public function finalisingUser($tempUser)
+    {
+        $tempUser->payment_date = (new \Datetime())->format('Y-m-d H:i:s');
+        $tempUser->status = "Paid";
+        $tempUser->save();
+
+        $user = $this->createNewUser($tempUser);
+
+        $this->sendEmail($user);
     }
 
 }
