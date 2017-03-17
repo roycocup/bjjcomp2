@@ -52,8 +52,12 @@ class RegisterController extends BaseController {
 		if (!empty($_REQUEST["token"])){
             $userToken = $_REQUEST["token"];
             // this was set in the button as return url and seems to just come in non stop in repeat mode....
-            if ($userToken == "xxxxx") return false;
-            
+            if ($userToken == "xxxxx")
+            {
+                Log::info("A xxxx token coming in");
+                die;
+            }
+
             Log::info("Payment coming in: " . json_encode($_REQUEST));
 			$tempUser = TempUser::where("usertoken", $userToken)->first();
 			if (!$tempUser){
