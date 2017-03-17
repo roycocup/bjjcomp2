@@ -27,14 +27,14 @@ class UserController extends BaseController {
 		$belts = $user->belt_colours;
 		$weights = $user->weights;
 		
-		usort($all, function($a, $b){
-			$belt_order = array('white', 'blue', 'purple', 'brown', 'black');
+		// usort($all, function($a, $b){
+		// 	$belt_order = array('white', 'blue', 'purple', 'brown', 'black');
 			
-			$i1 = array_search($a['belt'], $belt_order);
-			$i2 = array_search($b['belt'], $belt_order);
+		// 	$i1 = array_search($a['belt'], $belt_order);
+		// 	$i2 = array_search($b['belt'], $belt_order);
 			
-			return ($i1 < $i2) ? -1 : 1;
-		});		
+		// 	return ($i1 < $i2) ? -1 : 1;
+		// });		
 
 		$data['all'] = $all;
 
