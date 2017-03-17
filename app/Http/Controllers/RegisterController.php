@@ -220,8 +220,8 @@ class RegisterController extends BaseController {
                 ]
             );
 
-            // has paid already?
-            if (TempUser::where("email", $email)->andWhere('status', 'Paid')->count())
+            // has paid already in any of the matches?
+            if (TempUser::where("email", $email)->where('status', 'Paid')->count())
             {
                 Log("$name has already paid it seems");
                 die;
