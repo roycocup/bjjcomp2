@@ -15,9 +15,7 @@ class HomeController extends BaseController
     private $messages;
 
     public function __construct(){
-    	
     	$this->messages = new MessageBag();
-    	Log::info("working");
     }
 
 	public function showHome(){
