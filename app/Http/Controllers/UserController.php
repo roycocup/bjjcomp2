@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\User;
 use App\Helper;
+use Log;
 
 class UserController extends BaseController {
 
