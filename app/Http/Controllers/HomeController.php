@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\MessageBag;
 use Monolog\Logger;
+use Log; 
 
 class HomeController extends BaseController
 {
@@ -16,6 +17,7 @@ class HomeController extends BaseController
     public function __construct(){
     	
     	$this->messages = new MessageBag();
+    	Log::info("working");
     }
 
 	public function showHome(){
