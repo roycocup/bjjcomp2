@@ -41,11 +41,30 @@
                     this.$http.get(apiURL).then(function(response){
                         this.$data.users = response.data;
                     })
+                },
+
+                log: function (o){
+                    console.log(o);
                 }
             },
 
             created: function(){
               this.fetchData();
+            },
+
+            watch:{
+                search: 'log',
+                namesTicked: 'log',
+            },
+
+            filters: {
+                truncate: function (v) {
+                    var newline = v.indexOf('\n')
+                    return newline > 0 ? v.slice(0, newline) : v
+                },
+                formatDate: function (v) {
+                    return v.replace(/T|Z/g, ' ')
+                }
             },
 
         });
