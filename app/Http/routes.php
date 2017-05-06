@@ -15,10 +15,10 @@
 Route::get('/', 'HomeController@showHome');
 
 
-Route::get('users', function(){
-	$users = User::all();
-	return View::make('users')->with('users', $users);
-});
+//Route::get('users', function(){
+//	$users = User::all();
+//	return View::make('users')->with('users', $users);
+//});
 
 Route::get('/fighter-list', 'UserController@showList');
 Route::get('/fighter-list-broken', 'UserController@showBrokenList');
@@ -43,6 +43,10 @@ Route::post('/savetemp', 'RegisterController@paymentConfirm');
 
 // Rest API
 Route::get('/twitterTimeline', 'RestController@getTwitter');
+
+// API
+Route::match(['GET', 'POST'],'/api', 'APIController@index');
+Route::match(['GET', 'POST'],'/api/getList', 'APIController@getList');
 
 
 
