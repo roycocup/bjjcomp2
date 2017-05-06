@@ -6,7 +6,7 @@
         <tr>
             <td></td>
             <td></td>
-            <td>Search: <input placeholder="name"></td>
+            <td>Search: <input placeholder="name" v-model="search"></td>
         </tr>
         <tr>
             <td>Date</td>
@@ -16,7 +16,7 @@
         <tr v-for="user in users">
             <td>@{{ user.created_at }}</td>
             <td>@{{ user.f_name }} @{{ user.l_name }}</td>
-            <td><input type="checkbox" ></td>
+            <td><input type="checkbox" :value="user.id" v-model="namesTicked"></td>
         </tr>
     </table>
 
@@ -32,7 +32,7 @@
 
             data : {
                 users: {},
-                search: {},
+                search: '',
                 namesTicked: [],
             },
 
