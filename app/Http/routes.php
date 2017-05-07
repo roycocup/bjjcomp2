@@ -47,6 +47,8 @@ Route::get('/twitterTimeline', 'RestController@getTwitter');
 // API
 Route::match(['GET', 'POST'],'/api', 'APIController@index');
 Route::match(['GET', 'POST'],'/api/getList', 'APIController@getList');
+Route::post('/api/setPresent', 'APIController@setPresent');
+Route::get('/api/getPresent', 'APIController@getPresent');
 
 
 

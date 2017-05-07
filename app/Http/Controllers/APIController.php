@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\User;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class APIController extends BaseController
 {
@@ -30,6 +32,40 @@ class APIController extends BaseController
 
         $r->send();
 
+    }
+
+    public function getPresent(){
+        $ids = User::select('id')->where('present', true)->get()->toArray();
+        $list = [];
+        foreach ($ids as $v){
+            $list[] = $v['id'];
+        }
+        return $this->_encode($list);
+    }
+
+    /**
+     * This marks people are present or not present on the day
+     * @param Request $r
+     */
+    public function setPresent(Request $r){
+        $usersId = $r->toArray();
+
+        // people that are not on this list should be not marked as present
+        // because we just probably removed their tick
+        DB::table('users')
+            ->whereNotIn('id', $usersId)
+            ->where('present', 1)
+            ->update(['present' => 0]);
+
+        // mark these people as present
+        DB::table('users')
+            ->whereIn('id', $usersId)
+            ->update(['present' => 1]);
+
+        $rsp = new Response();
+        $rsp->content('ok');
+        $rsp->setStatusCode(200);
+        $rsp->send();
     }
 
 }

@@ -16,7 +16,7 @@
         <tr v-for="user in users">
             <td>@{{ user.created_at }}</td>
             <td>@{{ user.f_name }} @{{ user.l_name }}</td>
-            <td><input type="checkbox" :value="user.id" v-model="namesTicked"></td>
+            <td><input type="checkbox" :value="user.id" v-model="namesTicked" ></td>
         </tr>
     </table>
 
@@ -25,7 +25,6 @@
 @section('javascripts')
     <script>
         Vue.config.devtools = true;
-        var apiURL = '/api/getList';
 
         var vm = new Vue({
             el: '#app-4',
@@ -38,23 +37,36 @@
 
             methods: {
                 fetchData: function () {
-                    this.$http.get(apiURL).then(function(response){
+                    this.$http.get('/api/getList').then(function(response){
                         this.$data.users = response.data;
                     })
                 },
 
                 log: function (o){
                     console.log(o);
+                },
+
+                checkChecks: function () {
+                    this.$http.get('/api/getPresent').then(function (response) {
+                        this.$data.namesTicked = response.data;
+                    })
+                },
+
+                save: function (){
+                    this.$http.post('/api/setPresent', this.$data.namesTicked).then(function (response) {
+
+                    });
                 }
             },
 
             created: function(){
-              this.fetchData();
+                this.fetchData();
+                this.checkChecks();
             },
 
             watch:{
-                search: 'log',
-                namesTicked: 'log',
+                //search: 'log',
+                namesTicked: 'save',
             },
 
             filters: {
